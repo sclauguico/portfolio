@@ -1,0 +1,286 @@
+/* 
+--- 01 TYPOGRAPHY SYSTEM
+
+- Font Sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+- Font Weights: 
+Default: 400
+Medium: 500
+Semi-bold: 600
+Bold: 700
+Extra-bold: 800
+
+
+- Line Heights:
+Default: 1
+Small: 1.05
+Paragraph default: 1.6
+Large: 1.8
+
+- Letter spacing:
+-0.5px
+0.75px
+
+--- 02 COLORS
+- Primary: 
+#7D12F7 #03E46D #FF6600
+
+- Tints: 
+#d8b8fd   #b3f7d3  #ffd1b3
+#be89fb   #81f2b6  #ffb380
+#9741f9   #35e98a  #ff8533
+
+- Shades: 
+#7110de   #03cd62  #e65c00
+#25054a   #014421  #4c1f00
+
+- Accents:
+- Greys: 
+#394649
+
+- Whites
+#F0F4FA
+
+--- 05 SHADOWS
+0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+--- 06 BORDER RADIUS
+Default: 9px
+Medium: 11px
+
+--- 07 WHITE SPACE
+- Spacing System (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 112.5%;
+  overflow-x: hidden;
+}
+
+:root {
+  --primary-violet: #7d12f7;
+  --primary-green: #03e46d;
+  --primary-orange: #ff6600;
+  --primary-gray: #394649;
+  --primary-white: #f0f4fa;
+}
+
+body {
+  background-color: var(--primary-gray);
+  font-family: "Poppins", sans-serif;
+  color: var(--primary-white);
+  line-height: 1;
+  font-weight: 400;
+  /* overflow-x: hidden; */
+}
+
+/********************************/
+/* GENERAL REUSABLE COMPONENTS */
+/********************************/
+.container {
+  /* 1140px */
+  max-width: 120rem;
+  padding: 0 3.2rem;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  row-gap: 9.6rem;
+  column-gap: 6.4rem;
+  /* margin-bottom: 9.6rem;*/
+}
+
+/* .grid:last-child {
+  margin-bottom: 0;
+} */
+
+.grid:not(:last-child) {
+  margin-bottom: 9.6rem;
+}
+
+.grid--2-cols {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--3-cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--4-cols {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* .grid--5-cols {
+  grid-template-columns: repeat(5, 1fr);
+} */
+
+.grid--center-v {
+  align-items: center;
+}
+
+.heading-primary,
+.heading-secondary,
+.heading-tertiary {
+  /* line-height: 1.05; */
+  font-weight: 700;
+  color: #333;
+  /* color: #25054a; */
+  /* color: #343a40; */
+  letter-spacing: -0.5px;
+}
+
+.heading-primary {
+  font-size: 5.2rem;
+  /* font-weight: 700; */
+  line-height: 1.05;
+  margin-bottom: 3.2rem;
+}
+
+.heading-secondary {
+  font-size: 4.4rem;
+  line-height: 1.2;
+  margin-bottom: 9.6rem;
+}
+
+.heading-tertiary {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 3.2rem;
+}
+
+.subheading {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #7110de;
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+  letter-spacing: 0.75px;
+}
+
+.btn,
+.btn:link,
+.btn:visited {
+  display: inline-block;
+  /* background-color: var(--primary-violet); */
+  color: var(--primary-white);
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 1.6rem 3.2rem;
+  border-radius: 9px;
+
+  /* Only necessary for the button element not anchor tag*/
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  /* Put transition on original "state" */
+  /* transition: background-color 0.3s; */
+  transition: all 0.3s;
+}
+
+.btn--full:link,
+.btn--full:visited {
+  background-color: var(--primary-violet);
+  color: var(--primary-white);
+}
+
+.btn--full:hover,
+.btn--full:active {
+  background-color: #7110de;
+}
+
+.btn--outline:link,
+.btn--outline:visited {
+  background-color: var(--primary-white);
+  color: #555;
+}
+
+.btn--outline:hover,
+.btn--outline:active {
+  background-color: #d8b8fd;
+  /* adding border inside */
+  /* border: 3px solid var(--primary-white); */
+  /* Trick: To add border inside */
+  box-shadow: inset 0 0 0 3px var(--primary-white);
+}
+
+.btn--form {
+  background-color: #25054a;
+  color: #d8b8fd;
+  align-self: end;
+  padding: 1.2rem;
+}
+
+.btn--form:hover {
+  background-color: var(--primary-white);
+  color: #555;
+}
+
+.link:link,
+.link:visited {
+  display: inline-block;
+  color: var(--primary-white);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: all 0.3s;
+}
+
+.link:hover,
+.link:active {
+  color: #7110de ;
+  border-bottom: 1px solid transparent;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.list-item {
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  line-height: 1.2;
+}
+
+.list-icon {
+  width: 3rem;
+  height: 3rem;
+  color: #e67e22;
+}
+
+/* *:focus {
+  outline: none;
+  /* outline: 4px dotted #e67e22;
+  outline-offset: 8px; */
+  box-shadow: 0 0 0 0.8rem rgba(230, 125, 34, 0.5);
+} */
+
+/* HELPER/SETTING CLASSES */
+.margin-right-sm {
+  margin-right: 1.6rem !important;
+}
+
+.margin-bottom-md {
+  margin-bottom: 4.8rem !important;
+}
+
+.center-text {
+  text-align: center;
+}
+
+strong {
+  font-weight: 500;
+}

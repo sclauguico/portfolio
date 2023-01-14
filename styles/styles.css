@@ -1,0 +1,63 @@
+:root {
+  --primary-violet: #7d12f7;
+  --primary-green: #03e46d;
+  --primary-orange: #ff6600;
+  --primary-gray: #394649;
+  --primary-white: #f0f4fa;
+}
+
+/********************************/
+/* HEADER */
+/********************************/
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Because we want header to be sticky later */
+  height: 6.4rem;
+  padding: 0 4.8rem;
+  /* This is for the navigation bar */
+  position: relative;
+}
+
+/********************************/
+/* NAVIGATION */
+/********************************/
+
+.main-nav-list,
+.soc-nav-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 4.8rem;
+}
+
+.main-nav-link:link,
+.main-nav-link:visited {
+  display: inline-block;
+  text-decoration: none;
+  color: #f0f4faa1;
+  font-weight: 500;
+  font-size: 1.8rem;
+  transition: all 0.3s;
+}
+
+.main-nav-link:hover,
+.main-nav-link:active {
+  color: #03cd62;
+}
+
+.header-link:link,
+.header-link:visited {
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: var(--primary-white);
+  transition: all 0.3s;
+}
+
+.header-link:hover,
+.header-link:active {
+  /* color: #f0f4faa1; */
+  color: #03cd62;
+}
