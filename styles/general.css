@@ -131,7 +131,7 @@ body {
 .heading-tertiary {
   /* line-height: 1.05; */
   font-weight: 700;
-  color: #333;
+  color:var(--primary-white);
   /* color: #25054a; */
   /* color: #343a40; */
   letter-spacing: -0.5px;
@@ -154,6 +154,7 @@ body {
   font-size: 3rem;
   line-height: 1.2;
   margin-bottom: 3.2rem;
+  letter-spacing: 0.2rem;
 }
 
 .subheading {
