@@ -68,11 +68,12 @@ html {
   --primary-green: #03e46d;
   --primary-orange: #ff6600;
   --primary-gray: #394649;
+  --primary-black: #0D1117;
   --primary-white: #f0f4fa;
 }
 
 body {
-  background-color: var(--primary-gray);
+  background-color: var(--primary-black);
   font-family: "Poppins", sans-serif;
   color: var(--primary-white);
   line-height: 1;

@@ -3,6 +3,7 @@
   --primary-green: #03e46d;
   --primary-orange: #ff6600;
   --primary-gray: #394649;
+  --primary-black: #0D1117;
   --primary-white: #f0f4fa;
 }
 
@@ -14,10 +15,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* Because we want header to be sticky later */
   height: 6.4rem;
   padding: 0 4.8rem;
-  /* This is for the navigation bar */
   position: relative;
 }
 
@@ -83,10 +82,11 @@
 .hero-greet {
   font-size: 2rem;
   margin-bottom: 2.6rem;
+  color: #7d12f7;
 }
 
 .heading-primary {
-  color: #7d12f7;
+  color: #f0f4fa;
 }
 
 .hero-description {
@@ -102,13 +102,13 @@
 }
 
 .hero-img {
-  width: 800px; /* Adjust size as needed */
-  height: 800px; /* Adjust size as needed */
+  width: 700px; /* Adjust size as needed */
+  height: 700px; /* Adjust size as needed */
   border-radius: 50%; /* Creates a circular shape */
   background-color: #7d12f7; /* Background color */
   overflow: hidden; /* Ensures content doesn't overflow */
   position: relative;
-  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
 
 }
 
