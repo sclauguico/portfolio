@@ -59,7 +59,7 @@ Medium: 11px
 }
 
 html {
-  font-size: 112.5%;
+  font-size: 62.5%;
   overflow-x: hidden;
 }
 
@@ -73,12 +73,12 @@ html {
 }
 
 body {
-  background-color: var(--primary-black);
+  background-color: #0D1117;
   font-family: "Poppins", sans-serif;
-  color: var(--primary-white);
+  color: #f0f4fa;
   line-height: 1;
   font-weight: 400;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
 }
 
 /********************************/
@@ -121,8 +121,8 @@ body {
 .grid--4-cols-2-rows {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: auto; /* Adjusts rows based on content */
-  gap: 40px; /* Adjust gap as needed */
+  grid-auto-rows: auto;
+  gap: 4rem;
 }
 
 /* .grid--5-cols {
@@ -138,7 +138,7 @@ body {
 .heading-tertiary {
   /* line-height: 1.05; */
   font-weight: 700;
-  color:var(--primary-white);
+  color:#f0f4fa;
   /* color: #25054a; */
   /* color: #343a40; */
   letter-spacing: -0.5px;
@@ -178,12 +178,12 @@ body {
 .btn:link,
 .btn:visited {
   display: inline-block;
-  /* background-color: var(--primary-violet); */
-  color: var(--primary-white);
+  /* background-color: #7d12f7; */
+  color: #f0f4fa;
   text-decoration: none;
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: 600;
-  padding: 1.6rem 1.2rem;
+  padding: 1.6rem 3.2rem;
   border-radius: 9px;
 
   /* Only necessary for the button element not anchor tag*/
@@ -197,8 +197,8 @@ body {
 
 .btn--full:link,
 .btn--full:visited {
-  background-color: var(--primary-violet);
-  color: var(--primary-white);
+  background-color: #7d12f7;
+  color: #f0f4fa;
 }
 
 .btn--full:hover,
@@ -208,7 +208,7 @@ body {
 
 .btn--outline:link,
 .btn--outline:visited {
-  background-color: var(--primary-white);
+  background-color: #f0f4fa;
   color: #555;
 }
 
@@ -216,27 +216,27 @@ body {
 .btn--outline:active {
   background-color: #d8b8fd;
   /* adding border inside */
-  /* border: 3px solid var(--primary-white); */
+  /* border: 3px solid #f0f4fa; */
   /* Trick: To add border inside */
-  box-shadow: inset 0 0 0 3px var(--primary-white);
+  box-shadow: inset 0 0 0 3px #f0f4fa;
 }
 
 .btn--form {
   background-color: #25054a;
-  color: #d8b8fd;
+  color: #f0f4fa;
   align-self: end;
   padding: 1.2rem;
 }
 
 .btn--form:hover {
-  background-color: var(--primary-white);
+  background-color: #f0f4fa;
   color: #555;
 }
 
 .link:link,
 .link:visited {
   display: inline-block;
-  color: var(--primary-white);
+  color: #f0f4fa;
   text-decoration: none;
   border-bottom: 1px solid currentColor;
   padding-bottom: 2px;
@@ -245,7 +245,7 @@ body {
 
 .link:hover,
 .link:active {
-  color: #7110de ;
+  color: #03e46d;
   border-bottom: 1px solid transparent;
 }
 
@@ -270,12 +270,12 @@ body {
   color: #e67e22;
 }
 
-/* :focus {
+*:focus {
   outline: none;
   /* outline: 4px dotted #e67e22;
   outline-offset: 8px; */
   box-shadow: 0 0 0 0.8rem rgba(230, 125, 34, 0.5);
-/* } */
+}
 
 /* HELPER/SETTING CLASSES */
 .margin-right-sm {

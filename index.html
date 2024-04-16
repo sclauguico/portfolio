@@ -31,11 +31,11 @@
     <header class="header">
       <nav class="nav-left">
         <ul class="main-nav-list">
-          <li class="main-nav-link" href="#home">Home</li>
-          <li class="main-nav-link" href="#technologies">Technologies</li>
-          <li class="main-nav-link" href="#projects">Projects</li>
-          <li class="main-nav-link" href="#blogs">Blogs</li>
-          <li class="main-nav-link" href="#cta">Contact me</li>
+          <li> <a class="main-nav-link" href="#home">Home</a></li>
+          <li> <a class="main-nav-link" href="#technologies">Technologies</a></li>
+          <li> <a class="main-nav-link" href="#projects">Projects</a></li>
+          <li> <a class="main-nav-link" href="#blogs">Blogs</a></li>
+          <li> <a class="main-nav-link" href="#cta">Contact me</a></li>
         </ul>
       </nav>
       <nav class="nav-right">
@@ -68,7 +68,7 @@
     </header>
     <main>
       <!-- HERO SECTION -->
-      <section class="section-hero">
+      <section class="section-hero" id="home">
         <div class="hero">
           <div class="hero-text-box">
             <p class="hero-greet">
@@ -83,10 +83,10 @@
             <p class="hero-sub-description">
               Let's build end-to-end data and AI solutions together!
             </p>
-            <a href="#" class="btn btn--full margin-right-sm"
+            <a href="#technologies" class="btn btn--full margin-right-sm"
               >Request resume</a
             >
-            <a href="#" class="btn btn--outline margin-left">Learn more about me &darr;</a>
+            <a href="#technologies" class="btn btn--outline margin-left">Learn more about me &darr;</a>
           </div>
           <div class="hero-img-box">  
             <img
@@ -99,7 +99,7 @@
       </section>
 
        <!-- technology IN SECTION -->
-       <section class="section-technology">
+       <section class="section-technology" id="technologies">
         <div class="container center-text">
           <span class="subheading">technologies</span>
           <div class="logos">
@@ -118,7 +118,7 @@
       </section>
 
       <!-- PROJETCS SECTION -->
-      <section class="section-projects">
+      <section class="section-projects" id="projects">
         <div class="container center-text">
           <span class="subheading">projects</span>
           <h3 class="heading-tertiary">DATA ENGINEERING</h3>
@@ -150,13 +150,13 @@
           </a>
 
           <div class="project">
-            <img class="project-img" src="img/projects/project-2.jpg" alt="Data Modeling">
+            <img class="project-img" src="img/projects/ecommerce-data-modeling.png" alt="Data Modeling">
            <div class="project-content">
             <div class="project-tags">
               <span class="tag tag--intermediate">Intermediate</span>
             </div>
 
-            <p class="project-title">Data Modeling</p>
+            <p class="project-title">eCommerce Data Modeling</p>
             <ul class="project-attributes">
               <li class="project-attribute">
                 <ion-icon class="project-icon" name="star-outline"></ion-icon> 
@@ -175,7 +175,7 @@
           </div>
 
           <div class="project">
-            <img class="project-img" src="img/projects/project-3.jpg" alt="ETL with Airflow and Kafka">
+            <img class="project-img" src="img/projects/etl-airflow-kafka.png" alt="ETL with Airflow and Kafka">
            <div class="project-content">
             <div class="project-tags">
               <span class="tag tag--advanced">Advanced</span>
@@ -204,16 +204,16 @@
             <div class="project">
               <img class="project-img" src="img/projects/etl-geospatial.png" alt="ETL Development">
               <div class="project-content">
-               <div class="project-tags"><span class="tag tag--beginner">Beginner</span></div>
-               <p class="project-title">Geospatial Data ETL Development</p>
+               <div class="project-tags"><span class="tag tag--challenge">Challenge</span></div>
+               <p class="project-title"> Marketing Data Warehousing and BI Analytics</p>
                 <ul class="project-attributes">
                  <li class="project-attribute">
-                   <ion-icon class="project-icon" name="code-outline"></ion-icon> 
-                   <span>Python</span>
+                   <ion-icon class="project-icon" name="star-outline"></ion-icon> 
+                   <span>BigQuery</span>
                  </li>
                  <li class="project-attribute">
                    <ion-icon class="project-icon" name="analytics-outline"></ion-icon>
-                   <span>MySQL</span>
+                   <span>Looker</span>
                  </li>
                  <li class="project-attribute">
                   <ion-icon class="project-icon" name="arrow-down-circle-outline"></ion-icon>                <span>API</span>
@@ -272,7 +272,217 @@
                 </a>
         </div>
         <div class="container all-projects">
-          <a href="#" class="link">See all projects &rarr;</a>
+          <a href="#" class="link">See all DE projects &rarr;</a>
+        </div>
+      </section>
+
+      <section class="section-projects" id="projects">
+        <div class="container center-text">
+          <span class="subheading">projects</span>
+          <h3 class="heading-tertiary">AI ENGINEERING</h3>
+        </div>
+
+        <div class="container grid--4-cols-2-rows margin-bottom-md">
+          <a class="project-link" href="https://github.com/sclauguico/etl-geospatial">
+
+          <div class="project">
+            <img class="project-img" src="img/projects/etl-geospatial.png" alt="ETL Development">
+            <div class="project-content">
+             <div class="project-tags"><span class="tag tag--beginner">Beginner</span></div>
+             <p class="project-title">Geospatial Data ETL Development</p>
+              <ul class="project-attributes">
+               <li class="project-attribute">
+                 <ion-icon class="project-icon" name="code-outline"></ion-icon> 
+                 <span>Python</span>
+               </li>
+               <li class="project-attribute">
+                 <ion-icon class="project-icon" name="analytics-outline"></ion-icon>
+                 <span>MySQL</span>
+               </li>
+               <li class="project-attribute">
+                <ion-icon class="project-icon" name="arrow-down-circle-outline"></ion-icon>                <span>API</span>
+               </li>
+              </ul>
+            </div>
+          </div>
+          </a>
+
+          <div class="project">
+            <img class="project-img" src="img/projects/ecommerce-data-modeling.png" alt="Data Modeling">
+           <div class="project-content">
+            <div class="project-tags">
+              <span class="tag tag--intermediate">Intermediate</span>
+            </div>
+
+            <p class="project-title">eCommerce Data Modeling</p>
+            <ul class="project-attributes">
+              <li class="project-attribute">
+                <ion-icon class="project-icon" name="star-outline"></ion-icon> 
+                <span>DB Diagram</span>
+              </li>
+              <li class="project-attribute">
+                <ion-icon class="project-icon" name="pencil-outline"></ion-icon>
+                <span>DrawIO</span>
+              </li>
+              <li class="project-attribute">
+               <ion-icon class="project-icon" name="analytics-outline"></ion-icon>
+               <span>PostgreSQL</span>
+              </li>
+            </ul>
+           </div>
+          </div>
+
+          <div class="project">
+            <img class="project-img" src="img/projects/etl-airflow-kafka.png" alt="ETL with Airflow and Kafka">
+           <div class="project-content">
+            <div class="project-tags">
+              <span class="tag tag--advanced">Advanced</span>
+            </div>
+
+            <p class="project-title">ETL with Airflow & Kafka</p>
+            <ul class="project-attributes">
+              <li class="project-attribute">
+                <ion-icon class="project-icon" name="code-outline"></ion-icon> 
+                <span>Python</span>
+              </li>
+              <li class="project-attribute">
+                <ion-icon class="project-icon" name="caret-forward-outline"></ion-icon>
+                <span>Airflow</span>
+              </li>
+              <li class="project-attribute">
+               <ion-icon class="project-icon" name="water-outline"></ion-icon>
+               <span>Kafka</span>
+              </li>
+            </ul>
+           </div>
+          </div>
+          
+          <a class="project-link" href="https://github.com/sclauguico/etl-geospatial">
+
+            <div class="project">
+              <img class="project-img" src="img/projects/etl-geospatial.png" alt="ETL Development">
+              <div class="project-content">
+               <div class="project-tags"><span class="tag tag--challenge">Challenge</span></div>
+               <p class="project-title"> Marketing Data Warehousing and BI Analytics</p>
+                <ul class="project-attributes">
+                 <li class="project-attribute">
+                   <ion-icon class="project-icon" name="star-outline"></ion-icon> 
+                   <span>BigQuery</span>
+                 </li>
+                 <li class="project-attribute">
+                   <ion-icon class="project-icon" name="analytics-outline"></ion-icon>
+                   <span>Looker</span>
+                 </li>
+                 <li class="project-attribute">
+                  <ion-icon class="project-icon" name="arrow-down-circle-outline"></ion-icon>                <span>API</span>
+                 </li>
+                </ul>
+              </div>
+            </div>
+            </a>
+
+            <a class="project-link" href="https://github.com/sclauguico/etl-geospatial">
+
+              <div class="project">
+                <img class="project-img" src="img/projects/etl-geospatial.png" alt="ETL Development">
+                <div class="project-content">
+                 <div class="project-tags"><span class="tag tag--beginner">Beginner</span></div>
+                 <p class="project-title">Geospatial Data ETL Development</p>
+                  <ul class="project-attributes">
+                   <li class="project-attribute">
+                     <ion-icon class="project-icon" name="code-outline"></ion-icon> 
+                     <span>Python</span>
+                   </li>
+                   <li class="project-attribute">
+                     <ion-icon class="project-icon" name="analytics-outline"></ion-icon>
+                     <span>MySQL</span>
+                   </li>
+                   <li class="project-attribute">
+                    <ion-icon class="project-icon" name="arrow-down-circle-outline"></ion-icon>                <span>API</span>
+                   </li>
+                  </ul>
+                </div>
+              </div>
+              </a>
+
+              <a class="project-link" href="https://github.com/sclauguico/etl-geospatial">
+
+                <div class="project">
+                  <img class="project-img" src="img/projects/etl-geospatial.png" alt="ETL Development">
+                  <div class="project-content">
+                   <div class="project-tags"><span class="tag tag--beginner">Beginner</span></div>
+                   <p class="project-title">Geospatial Data ETL Development</p>
+                    <ul class="project-attributes">
+                     <li class="project-attribute">
+                       <ion-icon class="project-icon" name="code-outline"></ion-icon> 
+                       <span>Python</span>
+                     </li>
+                     <li class="project-attribute">
+                       <ion-icon class="project-icon" name="analytics-outline"></ion-icon>
+                       <span>MySQL</span>
+                     </li>
+                     <li class="project-attribute">
+                      <ion-icon class="project-icon" name="arrow-down-circle-outline"></ion-icon>                <span>API</span>
+                     </li>
+                    </ul>
+                  </div>
+                </div>
+                </a>
+        </div>
+        <div class="container all-projects">
+          <a href="#" class="link">See all AI projects &rarr;</a>
+        </div>
+      </section>
+
+      <!-- CALL TO ACTION SECTION -->
+      <section class="section-cta" id="cta">
+        <div class="container">
+        <div class="cta">
+          <div class="cta-text-box">
+            <h2 class="heading-secondary">Let's start working together!</h2>
+            <p class="cta-text">Book a call with me and see if we can collaborate. 
+              Or reuqest my resume!
+            </p>
+            <form class="cta-form" name="sign-up" netlify>
+              <div>
+                <label for="full-name">Full Name</label>
+                <input id="full-name" 
+                       type="text" 
+                        placeholder="Sherlock Holmes" 
+                        name="full-name" 
+                        required>
+              </div>
+              <div>
+                <label for="email">Email address</label>
+                <input id="email" 
+                       type="email" 
+                       placeholder="me@example.com" 
+                       name="email"
+                required>
+              </div>
+<!--    
+              <input type="checkbox">
+              <input type="number"> -->
+              <div>
+                <label for="select-where">Where did you fear from me?</label>
+                <select  
+                    id="select-where" 
+                    name="select-where"
+                    required
+                >
+                 <option value="">Please choose one option</option> 
+                 <option value="friends">Tech Communities</option> 
+                 <option value="youtube">LinkedIn</option> 
+                 <option value="podcast">IG or TikTok</option> 
+                 <option value="others">Others</option> 
+                </select>
+              </div>
+              <button class="btn btn--form">Say hi! 👋🏼</button>
+            </form>
+          </div>
+          <div class="cta-img-box" role="img" aria-label="Woman enjoying food"></div>
+        </div>
+          </div>
         </div>
       </section>
     </main>
