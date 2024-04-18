@@ -33,8 +33,9 @@
         <ul class="main-nav-list">
           <li> <a class="main-nav-link" href="#home">Home</a></li>
           <li> <a class="main-nav-link" href="#technologies">Technologies</a></li>
-          <li> <a class="main-nav-link" href="#projects">Projects</a></li>
-          <li> <a class="main-nav-link" href="#blogs">Blogs</a></li>
+          <li> <a class="main-nav-link" href="#deprojects">DE Projects</a></li>
+          <li> <a class="main-nav-link" href="#aiprojects">AI Projects</a></li>
+          <!-- <li> <a class="main-nav-link" href="#blogs">Blogs</a></li> -->
           <li> <a class="main-nav-link" href="#cta">Contact me</a></li>
         </ul>
       </nav>
@@ -43,7 +44,7 @@
           <li class="soc-nav-link" href="linkedin">
             <a
               class="header-link"
-              href="https://www.linkedin.com/in/sandy-lauguico-257592111/"
+              href="https://www.linkedin.com/in/sandy-lauguico/"
               target="_blank"
               ><ion-icon class="social-icon" name="logo-linkedin"></ion-icon
             ></a>
@@ -83,10 +84,12 @@
             <p class="hero-sub-description">
               Let's build end-to-end data and AI solutions together!
             </p>
-            <a href="#technologies" class="btn btn--full margin-right-sm"
-              >Request resume</a
-            >
-            <a href="#technologies" class="btn btn--outline margin-left">Learn more about me &darr;</a>
+            <div class="button-div">
+              <a href="#technologies" class="btn btn--full margin-right-sm"
+                >Request resume</a
+              >
+              <a href="#technologies" class="btn btn--outline margin-left">Learn more about me &darr;</a>
+          </div>
           </div>
           <div class="hero-img-box">  
             <img
@@ -118,7 +121,7 @@
       </section>
 
       <!-- PROJETCS SECTION -->
-      <section class="section-projects" id="projects">
+      <section class="section-projects" id="deprojects">
         <div class="container center-text">
           <span class="subheading">projects</span>
           <h3 class="heading-tertiary">DATA ENGINEERING</h3>
@@ -276,7 +279,7 @@
         </div>
       </section>
 
-      <section class="section-projects" id="projects">
+      <section class="section-projects" id="aiprojects">
         <div class="container center-text">
           <span class="subheading">projects</span>
           <h3 class="heading-tertiary">AI ENGINEERING</h3>
@@ -440,8 +443,7 @@
         <div class="cta">
           <div class="cta-text-box">
             <h2 class="heading-secondary">Let's start working together!</h2>
-            <p class="cta-text">Book a call with me and see if we can collaborate. 
-              Or reuqest my resume!
+            <p class="cta-text">Book a call with me; let's see if we can collaborate and build something great, or request my resume!
             </p>
             <form class="cta-form" name="sign-up" netlify>
               <div>
@@ -456,15 +458,12 @@
                 <label for="email">Email address</label>
                 <input id="email" 
                        type="email" 
-                       placeholder="me@example.com" 
+                       placeholder="sherlock@hogwarts.com" 
                        name="email"
                 required>
               </div>
-<!--    
-              <input type="checkbox">
-              <input type="number"> -->
               <div>
-                <label for="select-where">Where did you fear from me?</label>
+                <label for="select-where">Where did you hear from me?</label>
                 <select  
                     id="select-where" 
                     name="select-where"
@@ -474,13 +473,14 @@
                  <option value="friends">Tech Communities</option> 
                  <option value="youtube">LinkedIn</option> 
                  <option value="podcast">IG or TikTok</option> 
+                 <option value="podcast">Wizarding World⚡</option> 
                  <option value="others">Others</option> 
                 </select>
               </div>
               <button class="btn btn--form">Say hi! 👋🏼</button>
             </form>
           </div>
-          <div class="cta-img-box" role="img" aria-label="Woman enjoying food"></div>
+          <div class="cta-img-box" role="img" aria-label="Sandy"></div>
         </div>
           </div>
         </div>

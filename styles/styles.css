@@ -34,7 +34,7 @@
 }
 
 .social-icon{
-  height: 16rem;
+  font-size: 2.8rem;
 }
 
 .main-nav-link:link,
@@ -90,20 +90,18 @@
 }
 
 /* STICKY NAVIGATION */
-.sticky .header {
+.header {
   position: fixed;
   top: 0;
-  /* bottom: 0; */
   width: 100%;
   height: 8rem;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: #7d12f7;
   z-index: 999;
   box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.03);
 }
 
-.sticky .section-hero {
+.section-hero {
   margin-top: 9.6rem;
 }
 
@@ -117,17 +115,17 @@
 }
 
 .hero {
-  max-width: 130rem;
-  margin: 0 auto;
+  max-width: 160rem;
+  margin: 0rem auto;
   padding: 0 3.2rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 9.6rem;
+  gap: 16rem;
   align-items: center;
 }
 
 .hero-greet {
-  font-size: 2rem;
+  font-size: 3rem;
   line-height: 1.6;
   margin-bottom: 1.6rem;
   color: #7d12f7;
@@ -138,15 +136,19 @@
 }
 
 .hero-description {
-  font-size: 2rem;
+  font-size: 3.2rem;
   line-height: 1.6;
   margin-bottom: 1.6rem;
 }
 
 .hero-sub-description{
-  font-size: 1.6rem;
+  font-size: 2rem;
   margin-bottom: 4.8rem;
-
+}
+.button-div {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
 }
 
 .hero-img {
@@ -389,12 +391,16 @@
 }
 
 .cta-img-box {
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
       to right bottom,
      rgba(155, 68, 253, 0.35),
      rgba(143, 18, 247, 1),
-    ),
-    url("../img/eating.jpg");
+    ), */
+    
+    background-image: linear-gradient(to right bottom,
+     rgba(151, 65, 249, 0.2), 
+     rgba(125, 18, 247, 0.2)),
+    url("../img/sandy-dp.jpg");
   background-size: cover;
   background-position: center;
 }
