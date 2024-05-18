@@ -95,6 +95,8 @@ body {
   display: grid;
   row-gap: 9.6rem;
   column-gap: 6.4rem;
+  justify-content: center;
+
   /* margin-bottom: 9.6rem;*/
 }
 
@@ -115,7 +117,9 @@ body {
 }
 
 .grid--4-cols {
+  /* display: grid; */
   grid-template-columns: repeat(4, 1fr);
+  /* gap: 4rem; */
 }
 
 .grid--4-cols-2-rows {

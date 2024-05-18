@@ -115,7 +115,7 @@
 }
 
 .hero {
-  max-width: 160rem;
+  max-width: 130rem;
   margin: 0rem auto;
   padding: 0 3.2rem;
   display: grid;
@@ -375,7 +375,16 @@
 }
 .cta-text-box {
   padding: 4.8rem 6.4rem 6.4rem 6.4rem;
-  color: #0D1117;
+  color:#0D1117;
+}
+
+.cta-text-color {
+  color:#0D1117;
+}
+
+.hero-cta-description{
+  font-size: 2rem;
+  margin-bottom: 4.8rem;
 }
 
 .cta .heading-secondary {
@@ -388,6 +397,7 @@
   font-size: 1.8rem;
   line-height: 1.8;
   margin-bottom: 4.8rem;
+  color: #f0f4fa;
 }
 
 .cta-img-box {
@@ -433,7 +443,7 @@
 }
 
 .cta-form input::placeholder {
-  color: #aaa;
+  color: #4b4a4a;
 }
 
 .cta *:focus {
@@ -441,4 +451,9 @@
   /* outline: 4px dotted #e67e22;
   outline-offset: 8px; */
   box-shadow: 0 0 0 0.8rem rgba(253, 242, 233, 0.5);
+}
+
+label {
+  color: #f0f4fa;
+
 }

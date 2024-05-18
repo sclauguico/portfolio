@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/general.css" />
     <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/queries.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -127,7 +128,7 @@
           <h3 class="heading-tertiary">DATA ENGINEERING</h3>
         </div>
 
-        <div class="container grid--4-cols-2-rows margin-bottom-md">
+        <div class="container grid grid--4-cols">
           <a class="project-link" href="https://github.com/sclauguico/etl-geospatial">
 
             <div class="project">
@@ -214,7 +215,7 @@
             <img class="project-img" src="img/projects/marketing.png" alt="ETL Development">
             <div class="project-content">
              <div class="project-tags"><span class="tag tag--challenge">Challenge</span></div>
-             <p class="project-title">Data Warehousing and BI Analytics</p>
+             <p class="project-title">Data Warehousing & BI Analytics</p>
               <ul class="project-attributes"> 
                <li class="project-attribute">
                  <ion-icon class="project-icon" name="star-outline"></ion-icon> 
@@ -292,13 +293,38 @@
           <h3 class="heading-tertiary">AI ENGINEERING</h3>
         </div>
 
-        <div class="container grid--4-cols-2-rows margin-bottom-md">
+        <div class="container grid grid--4-cols">
+          <div class="project">
+            <img class="project-img" src="img/projects/decision-trees.png" alt="ETL with Airflow and Kafka">
+           <div class="project-content">
+            <div class="project-tags">
+              <span class="tag tag--beginner">Beginner</span>
+            </div>
+
+            <p class="project-title">Decision Trees and Feature Selection</p>
+            <ul class="project-attributes">
+              <li class="project-attribute">
+                <ion-icon class="project-icon" name="code-outline"></ion-icon> 
+                <span>Scikit-Learn</span>
+              </li>
+              <li class="project-attribute">
+                <ion-icon class="project-icon" name="caret-forward-outline"></ion-icon>
+                <span>Feature Selection</span>
+              </li>
+              <li class="project-attribute">
+               <ion-icon class="project-icon" name="water-outline"></ion-icon>
+               <span>Machine Learning</span>
+              </li>
+            </ul>
+           </div>
+          </div>
+
           <a class="project-link" href="https://github.com/sclauguico/etl-geospatial">
 
             <div class="project">
               <img class="project-img" src="img/projects/lettuce-classification.png" alt="ETL Development">
               <div class="project-content">
-              <div class="project-tags"><span class="tag tag--beginner">Beginner</span></div>
+              <div class="project-tags"><span class="tag tag--intermediate">Intermediate</span></div>
               <p class="project-title">Machine Vision- and ML-Based Lettuce Growth Stage Classification</p>
                 <ul class="project-attributes">
                 <li class="project-attribute">
@@ -322,7 +348,7 @@
             <img class="project-img" src="img/projects/grape-leaf-disease.png" alt="Data Modeling">
            <div class="project-content">
             <div class="project-tags">
-              <span class="tag tag--intermediate">Intermediate</span>
+              <span class="tag tag--advanced">Advanced</span>
             </div>
 
             <p class="project-title">Grape Leaf Multi-Disease Detection using RCNN</p>
@@ -342,49 +368,24 @@
             </ul>
            </div>
           </div>
-
-          <div class="project">
-            <img class="project-img" src="img/projects/decision-trees.png" alt="ETL with Airflow and Kafka">
-           <div class="project-content">
-            <div class="project-tags">
-              <span class="tag tag--advanced">Advanced</span>
-            </div>
-
-            <p class="project-title">Decision Tree-Based Growth Stage Classification</p>
-            <ul class="project-attributes">
-              <li class="project-attribute">
-                <ion-icon class="project-icon" name="code-outline"></ion-icon> 
-                <span>Python</span>
-              </li>
-              <li class="project-attribute">
-                <ion-icon class="project-icon" name="caret-forward-outline"></ion-icon>
-                <span>Airflow</span>
-              </li>
-              <li class="project-attribute">
-               <ion-icon class="project-icon" name="water-outline"></ion-icon>
-               <span>Kafka</span>
-              </li>
-            </ul>
-           </div>
-          </div>
           
-
             <div class="project">
               <img class="project-img" src="img/projects/thesis.png" alt="ETL Development">
               <div class="project-content">
                <div class="project-tags"><span class="tag tag--challenge">Challenge</span></div>
-               <p class="project-title">Adaptive Management System</p>
+               <p class="project-title">Smart Aquaponics Adaptive Management System</p>
                 <ul class="project-attributes"> 
                  <li class="project-attribute">
                    <ion-icon class="project-icon" name="star-outline"></ion-icon> 
-                   <span>BigQuery</span>
+                   <span>Control Systems</span>
                  </li>
                  <li class="project-attribute">
                    <ion-icon class="project-icon" name="analytics-outline"></ion-icon>
-                   <span>Looker</span>
+                   <span>Machine Vision</span>
                  </li>
                  <li class="project-attribute">
-                  <ion-icon class="project-icon" name="arrow-down-circle-outline"></ion-icon>                <span>API</span>
+                  <ion-icon class="project-icon" name="arrow-down-circle-outline"></ion-icon>     
+                  <span>Deep Learning</span>
                  </li>
                 </ul>
               </div>
@@ -448,7 +449,7 @@
         <div class="container">
         <div class="cta">
           <div class="cta-text-box">
-            <h2 class="heading-secondary">Let's start working together!</h2>
+            <h2 class="heading-secondary cta-text-color">Let's start working together!</h2>
             <p class="cta-text">Book a call with me; let's see if we can collaborate and build something great, or request my resume!
             </p>
             <form class="cta-form" name="sign-up" netlify>
