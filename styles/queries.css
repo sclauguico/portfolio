@@ -135,7 +135,7 @@
     }
 
     .project {
-        max-width: 70%; /* Adjust this value to decrease the width */
+        max-width: 80%; /* Adjust this value to decrease the width */
         margin: 0 auto; /* Center the project item within its container */
     }
 
@@ -194,7 +194,7 @@
       }
 
     .project {
-        max-width: 50%;
+        max-width: 70%;
       }
 
       .cta {
