@@ -139,6 +139,12 @@
         margin: 0 auto; /* Center the project item within its container */
     }
 
+    .grid--2-cols {
+      grid-template-columns: repeat(1, 1fr);
+      justify-content: center;
+
+  }
+
 }
 
 @media (max-width: 34em) {

@@ -183,33 +183,95 @@
   transform: rotate(45deg);
 } */
 
-/* technology IN SECTION */
+/* SKILLS SECTION */
 /********************************/
 
-.section-technology {
+.section-skills {
   padding: 4.8rem 0 3.2rem 0;
 }
 
-.heading-technology {
+
+.subheading {
+  display: block;
   font-size: 1.4rem;
   text-transform: uppercase;
   letter-spacing: 0.75px;
   font-weight: 500;
-  text-align: center;
   margin-bottom: 7.2rem;
+}
+
+.skills-grid {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.skills-accordion {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.skills-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: 1rem;
+}
+
+.skills-title .skills-icon:first-child {
+  margin-right: 1rem;
+}
+
+.skills-title .skills-icon.skills-arrow {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.skills-icon {
+  height: 2.4rem;
+  width: 2.4rem;
+  color: #03e46d;
+}
+
+.skills-field {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.skills-tech {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease, margin 0.3s ease;
+}
+
+.skills-open .skills-tech {
+  height: auto;
+  margin-top: 1rem;
+  margin-bottom: var(--mb-2-5);
+}
+
+.skills-open .skills-arrow {
+  transform: rotate(-180deg);
 }
 
 .logos {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .logos img {
   height: 6.2rem;
-  /* filter: grayscale(100%); */
+  margin: 0.5rem;
   filter: none;
   opacity: 1;
 }
+
 /* Style the tab */
 .tab {
   overflow: hidden;
@@ -245,7 +307,7 @@
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
-}
+} */
 
 
 /********************************/
@@ -339,6 +401,7 @@
 .all-projects {
   text-align: center;
   font-size: 1.8rem;
+  margin-bottom: 4.6rem;
 }
 
 .project-link {
