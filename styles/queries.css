@@ -274,6 +274,7 @@
     .grid--4-cols {
         grid-template-columns: repeat(1, 1fr);
         justify-content: center;
+        width: 60%;
     }
 
     .btn,
