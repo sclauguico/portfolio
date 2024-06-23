@@ -266,7 +266,7 @@
 
 @media (max-width: 34em) {
       html {
-        font-size: 38%
+        font-size: 42%
     }
     .grid {
         row-gap: 4.8rem;
@@ -294,6 +294,10 @@
       align-items: center;
       padding: 0 8rem;
       gap: 4rem;
+    }
+
+    .hero-sub-description {
+      font-size: 1.8rem;
     }
 
     .btn {
@@ -368,7 +372,7 @@
   .grid--4-cols {
       grid-template-columns: repeat(1, 1fr);
       justify-content: center;
-      width: 68%;
+      width: 72%;
   }
 
 }
