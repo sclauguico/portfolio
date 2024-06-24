@@ -6,9 +6,9 @@
         gap: 2rem;
     }
 
-    .heading-primary {
+    /* .heading-primary {
         font-size: 5.2rem;
-    }
+    } */
 
     .button-div {
         gap: 1.6rem;
@@ -43,7 +43,7 @@
         row-gap: 6.4rem;
     }
 
-    .heading-secondary {
+    /* .heading-secondary {
         font-size: 3.6rem;
     }
 
@@ -53,7 +53,7 @@
 
     .header {
         padding: 0 3.2rem;
-    }
+    } */
 
     .main-nav-list {
         gap: 3.2rem
@@ -76,7 +76,7 @@
       row-gap: 6.4rem;
   }
 
-  .heading-secondary {
+  /* .heading-secondary {
       font-size: 3.6rem;
   }
 
@@ -86,7 +86,7 @@
 
   .header {
       padding: 0 3.2rem;
-  }
+  } */
 
   .main-nav-list {
       gap: 3.2rem
