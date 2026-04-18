@@ -106,6 +106,25 @@ const live =
     const closeBtn = fab.querySelector<HTMLButtonElement>('[data-fab-close]');
     const input = fab.querySelector<HTMLInputElement>('[data-chat-input]');
 
+    const vv = window.visualViewport;
+
+    const reposition = () => {
+      if (!panel) return;
+      const layoutH = window.innerHeight;
+      const visH = vv ? vv.height : layoutH;
+      const visTop = vv ? vv.offsetTop : 0;
+      const keyboardOverlap = Math.max(0, layoutH - (visTop + visH));
+      fab.style.bottom = `${16 + keyboardOverlap}px`;
+      if (open) {
+        const available = visH - 80;
+        panel.style.height = `${Math.max(220, Math.min(480, available))}px`;
+        panel.style.maxHeight = `${Math.max(220, available)}px`;
+      } else {
+        panel.style.height = '';
+        panel.style.maxHeight = '';
+      }
+    };
+
     let open = false;
     const setOpen = (next: boolean) => {
       if (!panel || !toggleBtn) return;
@@ -114,8 +133,8 @@ const live =
       panel.classList.toggle('flex', open);
       toggleBtn.setAttribute('aria-expanded', String(open));
       if (toggleLabel) toggleLabel.textContent = open ? 'Close' : 'Ask my AI twin';
+      reposition();
       if (open) setTimeout(() => input?.focus(), 0);
-      if (!open) fab.style.transform = '';
     };
 
     toggleBtn?.addEventListener('click', () => setOpen(!open));
@@ -124,18 +143,12 @@ const live =
       if (e.key === 'Escape' && open) setOpen(false);
     });
 
-    const vv = window.visualViewport;
-    if (vv) {
-      const updateOffset = () => {
-        const offset = window.innerHeight - vv.height - vv.offsetTop;
-        fab.style.transform = open && offset > 0 ? `translateY(-${offset}px)` : '';
-      };
-      vv.addEventListener('resize', updateOffset);
-      vv.addEventListener('scroll', updateOffset);
-      input?.addEventListener('focus', () => setTimeout(updateOffset, 300));
-      input?.addEventListener('blur', () => {
-        fab.style.transform = '';
-      });
-    }
+    vv?.addEventListener('resize', reposition);
+    vv?.addEventListener('scroll', reposition);
+    window.addEventListener('resize', reposition);
+    input?.addEventListener('focus', () => {
+      [100, 300, 500, 800].forEach((d) => setTimeout(reposition, d));
+    });
+    input?.addEventListener('blur', () => setTimeout(reposition, 100));
   }
 </script>
