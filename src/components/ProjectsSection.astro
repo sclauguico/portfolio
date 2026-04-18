@@ -1,0 +1,26 @@
+---
+import { projects, type Discipline } from '@/data/projects';
+import ProjectCard from './ProjectCard.astro';
+import SectionHeader from './SectionHeader.astro';
+
+interface Props {
+  id: string;
+  index: string;
+  label: string;
+  title: string;
+  kicker?: string;
+  discipline: Discipline;
+}
+const { id, index, label, title, kicker, discipline } = Astro.props;
+const list = projects.filter((p) => p.discipline === discipline);
+---
+
+<section id={id} class="relative">
+  <SectionHeader index={index} label={label} title={title} kicker={kicker} />
+
+  <div class="max-w-page mx-auto px-5 md:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {list.map((p, i) => <ProjectCard project={p} number={i + 1} />)}
+    </div>
+  </div>
+</section>

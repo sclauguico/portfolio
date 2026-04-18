@@ -1,0 +1,24 @@
+export interface Env {
+  AI: {
+    run: (
+      model: string,
+      input: Record<string, unknown>,
+    ) => Promise<ReadableStream<Uint8Array> | unknown>;
+  };
+  OPENROUTER_API_KEY: string;
+  MODEL: string;
+  WORKERS_AI_MODEL: string;
+  ALLOWED_ORIGINS: string;
+}
+
+export type Role = 'user' | 'assistant';
+
+export interface ChatMessage {
+  role: Role;
+  content: string;
+}
+
+export interface AskRequest {
+  message: string;
+  history?: ChatMessage[];
+}

@@ -1,0 +1,199 @@
+---
+import EmailButton from './EmailButton.astro';
+const year = new Date().getFullYear();
+---
+
+<section class="relative">
+  <div class="relative max-w-page mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-14 md:pb-20">
+
+    <div
+      class="flex items-baseline justify-between gap-3 font-mono text-[11px] tracking-[0.16em] uppercase text-subtle fade-up"
+    >
+      <p>
+        <span class="text-accent">§ 00</span>
+        <span class="opacity-50">·</span>
+        <span>Intro</span>
+      </p>
+      <p class="hidden sm:block">
+        {year} · Manila, PH · Remote worldwide
+      </p>
+    </div>
+
+    <div
+      class="mt-6 md:mt-8 grid grid-cols-12 gap-x-5 md:gap-x-8 gap-y-8 items-start"
+    >
+      <div class="col-span-4 sm:col-span-3 md:col-span-3 fade-up">
+        <figure class="relative">
+          <img
+            src="/img/Lauguico_Sandy_AIHeadshot.png"
+            alt="Sandy Lauguico"
+            width="320"
+            height="320"
+            loading="eager"
+            decoding="async"
+            class="block w-full aspect-square rounded-md object-cover border border-border bg-surface"
+          />
+          <figcaption
+            class="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-subtle"
+          >
+            fig. 01
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="col-span-8 sm:col-span-9 md:col-span-8 min-w-0">
+        <h1
+          class="font-semibold tracking-tightest text-ink leading-[0.98] fade-up"
+          style="font-size: clamp(2.5rem, 7vw, 4.25rem);"
+        >
+          Sandy Lauguico
+        </h1>
+
+        <div
+          class="mt-3 flex items-center gap-3 text-[13px] fade-up"
+        >
+          <span class="relative flex h-2 w-2" aria-hidden="true">
+            <span
+              class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/50"
+            ></span>
+            <span
+              class="relative inline-flex h-2 w-2 rounded-full bg-accent"
+            ></span>
+          </span>
+          <span class="font-mono text-[11px] tracking-[0.18em] uppercase text-muted">
+            Consulting · Contract · Freelance · Tech Generalist
+          </span>
+        </div>
+
+        <p
+          class="mt-6 max-w-prose text-[16px] md:text-[17px] leading-relaxed text-ink/90 fade-up"
+        >
+          All-around tech generalist. I ship
+          <strong class="font-semibold">software, data, AI, and analytics solutions</strong>:
+          pipelines, APIs, agents, dashboards, and the systems that connect
+          them, built to hold up past the demo.
+        </p>
+
+        <p
+          class="mt-3 max-w-prose text-[14.5px] leading-relaxed text-muted fade-up"
+        >
+          Electronics Engineer by training, IEEE-published in computer vision
+          and robotics. I also write on Medium, guest in YouTube tutorial
+          channels, and keep a free set of Notion roadmaps for people
+          navigating their way into data careers.
+        </p>
+
+        <div class="relative z-20 mt-8 flex items-center gap-5 fade-up">
+          <a href="#work" class="btn-primary">
+            <span>See selected work</span>
+            <svg
+              class="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="M5 12h14M13 6l6 6-6 6"></path></svg
+            >
+          </a>
+          <EmailButton
+            email="hello@sailauguico.io"
+            variant="link"
+            label="or send me an email →"
+          />
+        </div>
+      </div>
+
+      <nav
+        class="hidden md:flex md:col-span-1 flex-col items-center gap-3"
+        aria-label="Profiles"
+      >
+        <span class="block h-8 w-px bg-border" aria-hidden="true"></span>
+        <a
+          href="https://github.com/sclauguico"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="GitHub"
+          class="grid place-items-center h-9 w-9 rounded-md text-muted hover:text-ink hover:bg-ink/5 transition"
+        >
+          <svg class="h-[17px] w-[17px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.93c.57.1.78-.25.78-.55v-2.02c-3.2.7-3.87-1.37-3.87-1.37-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.23-1.27-5.23-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17a10.93 10.93 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.37-5.25 5.65.41.36.78 1.07.78 2.16v3.2c0 .31.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/>
+          </svg>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/sandy-lauguico/"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="LinkedIn"
+          class="grid place-items-center h-9 w-9 rounded-md text-muted hover:text-ink hover:bg-ink/5 transition"
+        >
+          <svg class="h-[17px] w-[17px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.67H9.35V9h3.42v1.56h.04c.48-.9 1.64-1.86 3.37-1.86 3.6 0 4.27 2.37 4.27 5.45v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.78C.8 0 0 .78 0 1.74v20.51C0 23.22.8 24 1.78 24h20.44c.98 0 1.78-.78 1.78-1.75V1.74C24 .78 23.2 0 22.22 0z"/>
+          </svg>
+        </a>
+        <a
+          href="https://medium.com/@sclauguico"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Medium"
+          class="grid place-items-center h-9 w-9 rounded-md text-muted hover:text-ink hover:bg-ink/5 transition"
+        >
+          <svg class="h-[17px] w-[17px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M13.54 12c0 3.04-2.42 5.5-5.4 5.5S2.73 15.04 2.73 12s2.42-5.5 5.4-5.5 5.41 2.46 5.41 5.5zm5.93 0c0 2.86-1.21 5.18-2.7 5.18-1.5 0-2.71-2.32-2.71-5.18s1.21-5.18 2.7-5.18c1.5 0 2.71 2.32 2.71 5.18zM22 12c0 2.56-.42 4.64-.95 4.64-.53 0-.96-2.08-.96-4.64s.43-4.64.96-4.64.95 2.08.95 4.64z"/>
+          </svg>
+        </a>
+        <a
+          href="https://scholar.google.com.ph/citations?user=jiTezCwAAAAJ"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Google Scholar"
+          class="grid place-items-center h-9 w-9 rounded-md text-muted hover:text-ink hover:bg-ink/5 transition"
+        >
+          <svg class="h-[17px] w-[17px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+            <path d="M12 14l6.16-3.42A12 12 0 0 1 12 20a12 12 0 0 1-6.16-9.42L12 14z"/>
+          </svg>
+        </a>
+        <span class="block h-8 w-px bg-border" aria-hidden="true"></span>
+      </nav>
+    </div>
+
+    <div
+      class="mt-12 md:mt-16 pt-6 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-y-5 gap-x-6 fade-up"
+    >
+      <div>
+        <p class="mono-label">Experience</p>
+        <p class="mt-1.5 text-[14px] text-ink">8+ yrs · academia &amp; industry</p>
+      </div>
+      <div>
+        <p class="mono-label">Background</p>
+        <p class="mt-1.5 text-[14px] text-ink">Licensed Electronics Engineer</p>
+      </div>
+      <div>
+        <p class="mono-label">Published</p>
+        <p class="mt-1.5 text-[14px]">
+          <a
+            href="https://scholar.google.com.ph/citations?user=jiTezCwAAAAJ"
+            target="_blank"
+            rel="noreferrer"
+            class="text-ink link-underline">IEEE · Google Scholar →</a
+          >
+        </p>
+      </div>
+      <div>
+        <p class="mono-label">Writing</p>
+        <p class="mt-1.5 text-[14px]">
+          <a
+            href="https://medium.com/@sclauguico"
+            target="_blank"
+            rel="noreferrer"
+            class="text-ink link-underline">Medium →</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hairline max-w-page mx-auto"></div>
+</section>

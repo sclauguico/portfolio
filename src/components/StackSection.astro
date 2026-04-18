@@ -1,0 +1,55 @@
+---
+import { stack } from '@/data/projects';
+import SectionHeader from './SectionHeader.astro';
+---
+
+<section id="stack" class="relative">
+  <SectionHeader
+    index="01"
+    label="Toolchain"
+    title="Tools I build with, day-to-day."
+    kicker="Stack."
+  />
+
+  <div class="max-w-page mx-auto px-5 md:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {
+        stack.map((group) => (
+          <div class="card p-5 md:p-6 fade-up">
+            <div class="flex items-center justify-between">
+              <h3 class="text-[15px] font-semibold tracking-tight text-ink">
+                {group.label}
+              </h3>
+            </div>
+            <ul class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
+              {group.items.map((item) => (
+                <li class="group/item flex items-center gap-2 text-[13px] text-muted">
+                  {item.logo ? (
+                    <img
+                      src={item.logo}
+                      alt={item.name}
+                      width="18"
+                      height="18"
+                      loading="lazy"
+                      class="h-[18px] w-[18px] object-contain"
+                    />
+                  ) : (
+                    <span
+                      class="inline-grid place-items-center h-[18px] w-[18px] rounded-[4px] border border-border bg-ink/[0.04] font-mono text-[9px] font-semibold text-subtle"
+                      aria-hidden="true"
+                    >
+                      {item.name.charAt(0)}
+                    </span>
+                  )}
+                  {!item.hideLabel && (
+                    <span class="group-hover/item:text-ink transition">{item.name}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
