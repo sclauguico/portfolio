@@ -1,0 +1,126 @@
+---
+const endpoint = import.meta.env.PUBLIC_AI_ENDPOINT ?? '';
+const live =
+  Boolean(endpoint) &&
+  !endpoint.includes('YOUR-SUBDOMAIN') &&
+  !endpoint.includes('sandy-twin.YOUR');
+---
+
+{live && (
+  <div
+    class="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-50 print:hidden"
+    data-ai-fab
+    data-endpoint={endpoint}
+  >
+    <div
+      class="hidden flex-col w-[calc(100vw-2rem)] sm:w-[360px] max-w-[92vw] h-[70vh] sm:h-[480px] max-h-[calc(100vh-6rem)] mb-3 rounded-lg border border-border bg-surface shadow-xl overflow-hidden"
+      data-fab-panel
+      role="dialog"
+      aria-modal="false"
+      aria-label="Sandy's AI twin chat"
+    >
+      <div class="flex items-center justify-between gap-2 px-3 py-2 border-b border-border bg-bg/60">
+        <div class="flex items-center gap-2">
+          <span class="chip chip--accent">
+            <span class="h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></span>
+            Live
+          </span>
+          <span class="mono-label">AI Twin</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <button
+            type="button"
+            data-reset
+            class="text-[11px] font-mono tracking-wider uppercase text-subtle hover:text-ink transition px-2"
+            aria-label="Reset chat"
+          >reset</button>
+          <button
+            type="button"
+            data-fab-close
+            class="h-7 w-7 grid place-items-center rounded-md text-subtle hover:text-ink hover:bg-ink/5 transition"
+            aria-label="Close chat"
+          >
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="flex-1 overflow-y-auto p-3 text-[13.5px] leading-relaxed"
+        data-transcript
+        aria-live="polite"
+        aria-atomic="false"
+      >
+        <p class="text-subtle italic">Ask my AI twin. Try: "What are you working on right now?"</p>
+      </div>
+
+      <form class="flex gap-2 p-3 border-t border-border bg-bg/60" data-chat-form>
+        <label class="sr-only" for="ai-twin-fab-input">Ask a question</label>
+        <input
+          id="ai-twin-fab-input"
+          data-chat-input
+          type="text"
+          name="message"
+          placeholder="Ask anything about Sandy..."
+          autocomplete="off"
+          maxlength="1000"
+          required
+          class="flex-1 h-9 px-3 rounded-md bg-surface border border-border text-[13.5px] text-ink placeholder:text-subtle focus:outline-none focus:border-accent/60 focus:ring-2 focus:ring-accent/20 transition"
+        />
+        <button type="submit" class="btn-primary shrink-0" data-submit aria-label="Send">
+          <span data-submit-label>Send</span>
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+    </div>
+
+    <button
+      type="button"
+      data-fab-toggle
+      class="flex items-center gap-2 h-12 pl-3 pr-4 rounded-full bg-ink text-bg shadow-lg hover:shadow-xl transition"
+      aria-label="Open AI twin chat"
+      aria-expanded="false"
+    >
+      <span class="relative grid place-items-center h-7 w-7 rounded-full bg-bg/10">
+        <span class="absolute inset-0 rounded-full bg-accent/30 animate-pulse"></span>
+        <svg class="h-4 w-4 relative" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </span>
+      <span class="text-[13px] font-medium tracking-tight" data-fab-toggle-label>Ask my AI twin</span>
+    </button>
+  </div>
+)}
+
+<script>
+  import { mountChat } from '@/scripts/aiTwin';
+
+  const fab = document.querySelector<HTMLElement>('[data-ai-fab]');
+  if (fab) {
+    const endpoint = fab.dataset.endpoint ?? '';
+    mountChat({ root: fab, endpoint });
+
+    const panel = fab.querySelector<HTMLElement>('[data-fab-panel]');
+    const toggleBtn = fab.querySelector<HTMLButtonElement>('[data-fab-toggle]');
+    const toggleLabel = fab.querySelector<HTMLElement>('[data-fab-toggle-label]');
+    const closeBtn = fab.querySelector<HTMLButtonElement>('[data-fab-close]');
+    const input = fab.querySelector<HTMLInputElement>('[data-chat-input]');
+
+    let open = false;
+    const setOpen = (next: boolean) => {
+      if (!panel || !toggleBtn) return;
+      open = next;
+      panel.classList.toggle('hidden', !open);
+      panel.classList.toggle('flex', open);
+      toggleBtn.setAttribute('aria-expanded', String(open));
+      if (toggleLabel) toggleLabel.textContent = open ? 'Close' : 'Ask my AI twin';
+      if (open) setTimeout(() => input?.focus(), 0);
+    };
+
+    toggleBtn?.addEventListener('click', () => setOpen(!open));
+    closeBtn?.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && open) setOpen(false);
+    });
+  }
+</script>

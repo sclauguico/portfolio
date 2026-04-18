@@ -1,0 +1,102 @@
+---
+const endpoint = import.meta.env.PUBLIC_AI_ENDPOINT ?? '';
+const live =
+  Boolean(endpoint) &&
+  !endpoint.includes('YOUR-SUBDOMAIN') &&
+  !endpoint.includes('sandy-twin.YOUR');
+---
+
+<div class="card p-5 md:p-6" data-ai-card data-endpoint={endpoint}>
+  <div class="flex items-center justify-between gap-2">
+    <div class="flex items-center gap-2">
+      <span class={live ? 'chip chip--accent' : 'chip'}>
+        <span class={`h-1.5 w-1.5 rounded-full ${live ? 'bg-accent animate-pulse' : 'bg-subtle'}`}></span>
+        {live ? 'Live' : 'Coming soon'}
+      </span>
+      <span class="mono-label" style="--tw-text-opacity:1">AI Twin</span>
+    </div>
+    {live && (
+      <button
+        type="button"
+        data-reset
+        class="text-[11px] font-mono tracking-wider uppercase text-subtle hover:text-ink transition"
+        aria-label="Reset chat"
+      >
+        reset
+      </button>
+    )}
+  </div>
+
+  <h3 class="mt-4 text-[16px] font-semibold tracking-tight text-ink">
+    Ask my AI twin.
+  </h3>
+  <p class="mt-2 text-[13.5px] leading-relaxed text-muted">
+    A small agent trained on my projects, writing, and background. Skip the
+    scroll; ask what you actually want to know.
+  </p>
+
+  {live ? (
+    <>
+      <div
+        class="mt-4 rounded-md border border-border bg-bg/60 p-3 h-60 overflow-y-auto text-[13.5px] leading-relaxed"
+        data-transcript
+        aria-live="polite"
+        aria-atomic="false"
+      >
+        <p class="text-subtle italic">Try: "What are you working on right now?"</p>
+      </div>
+
+      <form class="mt-3 flex gap-2" data-chat-form>
+        <label class="sr-only" for="ai-twin-input">Ask a question</label>
+        <input
+          id="ai-twin-input"
+          data-chat-input
+          type="text"
+          name="message"
+          placeholder="Ask anything about Sandy..."
+          autocomplete="off"
+          maxlength="1000"
+          required
+          class="flex-1 h-9 px-3 rounded-md bg-surface border border-border text-[13.5px] text-ink placeholder:text-subtle focus:outline-none focus:border-accent/60 focus:ring-2 focus:ring-accent/20 transition"
+        />
+        <button
+          type="submit"
+          class="btn-primary shrink-0"
+          data-submit
+          aria-label="Send"
+        >
+          <span data-submit-label>Send</span>
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            ><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </button>
+      </form>
+
+      <p class="mt-3 font-mono text-[10.5px] tracking-wider text-subtle">
+        Powered by OpenRouter · Llama 3.3 70B · Free tier
+      </p>
+    </>
+  ) : (
+    <div
+      class="mt-4 flex items-center gap-2 rounded-md border border-dashed border-ink/15 px-3 py-2 bg-ink/[0.02]"
+    >
+      <span class="font-mono text-[11px] text-subtle">&gt;</span>
+      <code class="font-mono text-[12px] text-muted"
+        >await sandy.ask("...")</code
+      >
+    </div>
+  )}
+</div>
+
+<script>
+  import { mountChat } from '@/scripts/aiTwin';
+  const card = document.querySelector<HTMLElement>('[data-ai-card]');
+  if (card) mountChat({ root: card, endpoint: card.dataset.endpoint ?? '' });
+</script>

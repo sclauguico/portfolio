@@ -1,0 +1,174 @@
+---
+import '@/styles/global.css';
+import AiTwinFab from '@/components/AiTwinFab.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Sandy Lauguico · Data & AI Engineer',
+  description = 'Sandy Lauguico is a Data & AI Engineer building production pipelines, agents, and analytics systems.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico" />
+    <meta name="color-scheme" content="light dark" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = stored || (prefersDark ? 'dark' : 'light');
+        if (theme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+  <body class="relative">
+    <div class="grain" aria-hidden="true"></div>
+
+    <header
+      class="sticky top-0 z-40 backdrop-blur-md bg-bg/80 border-b border-border"
+    >
+      <div
+        class="max-w-page mx-auto px-5 md:px-8 h-14 flex items-center justify-between"
+      >
+        <a
+          href="#top"
+          class="flex items-center gap-2 font-semibold tracking-tight text-[15px] text-ink"
+          aria-label="Sandy Lauguico, home"
+        >
+          <span
+            class="inline-grid place-items-center h-7 w-7 rounded-md bg-ink text-bg text-[11px] font-semibold"
+            aria-hidden="true"
+          >
+            SL
+          </span>
+          <span>Sandy Lauguico</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-7 text-[13px]" aria-label="Primary">
+          <a href="#work" class="text-muted hover:text-ink transition">Work</a>
+          <a href="#stack" class="text-muted hover:text-ink transition">Stack</a>
+          <a href="#about" class="text-muted hover:text-ink transition">About</a>
+          <a href="#contact" class="text-muted hover:text-ink transition">Contact</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <a
+            href="#contact"
+            class="hidden sm:inline-flex btn-primary"
+          >
+            Get in touch
+          </a>
+          <button
+            id="theme-toggle"
+            type="button"
+            aria-label="Toggle color theme"
+            class="h-9 w-9 grid place-items-center rounded-md border border-border text-muted hover:text-ink hover:border-ink/30 transition"
+          >
+            <svg
+              class="h-4 w-4 hidden dark:block"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+              ></path>
+            </svg>
+            <svg
+              class="h-4 w-4 dark:hidden"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top" class="relative z-10">
+      <slot />
+    </main>
+
+    <AiTwinFab />
+
+    <footer class="relative z-10 border-t border-border mt-24">
+      <div
+        class="max-w-page mx-auto px-5 md:px-8 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[13px] text-subtle"
+      >
+        <p>© {new Date().getFullYear()} Sandy Lauguico. All rights reserved.</p>
+        <p class="font-mono text-[11px] tracking-widest uppercase">
+          <a href="/og/index.html" class="link-underline hover:text-ink">v1 archive</a>
+          <span class="mx-2 opacity-40">·</span>
+          <a
+            href="https://github.com/sclauguico"
+            target="_blank"
+            rel="noreferrer"
+            class="link-underline hover:text-ink">github</a
+          >
+          <span class="mx-2 opacity-40">·</span>
+          <a
+            href="https://www.linkedin.com/in/sandy-lauguico/"
+            target="_blank"
+            rel="noreferrer"
+            class="link-underline hover:text-ink">linkedin</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script is:inline>
+      const btn = document.getElementById('theme-toggle');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.toggle('dark');
+          const next = isDark ? 'dark' : 'light';
+          localStorage.setItem('theme', next);
+          document.documentElement.dataset.theme = next;
+        });
+      }
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('in');
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+      );
+      document.querySelectorAll('.fade-up').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+name = "sandy-twin"
+main = "src/index.ts"
+compatibility_date = "2025-01-15"
+
+[ai]
+binding = "AI"
+
+[vars]
+WORKERS_AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+MODEL = "nvidia/nemotron-nano-9b-v2:free"
+ALLOWED_ORIGINS = "https://sailauguico.io,http://localhost:4321"
+
+# Secrets (set via `wrangler secret put OPENROUTER_API_KEY`):
+# - OPENROUTER_API_KEY
+
+# To bind to a custom domain (api.sailauguico.io) AFTER migrating DNS to Cloudflare,
+# uncomment and adjust:
+# [[routes]]
+# pattern = "api.sailauguico.io/*"
+# zone_name = "sailauguico.io"
