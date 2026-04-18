@@ -154,6 +154,7 @@ export const stack: StackGroup[] = [
       { name: 'Python', logo: '/img/logos/python.png' },
       { name: 'Spark', logo: di('apachespark', 'apachespark-original.svg') },
       { name: 'Airflow', logo: di('apacheairflow', 'apacheairflow-original.svg') },
+      { name: 'dbt', logo: '/img/logos/dbt.svg' },
       { name: 'Postgres', logo: '/img/logos/postgre.png' },
       { name: 'MySQL', logo: '/img/logos/mysql.png' },
       { name: 'Databricks', logo: si('databricks') },

@@ -14,7 +14,7 @@ const year = new Date().getFullYear();
         <span class="opacity-50">·</span>
         <span>Intro</span>
       </p>
-      <p class="hidden sm:block">
+      <p class="hidden sm:block font-hand text-[18px] tracking-normal normal-case text-muted">
         {year} · Manila, PH · Remote worldwide
       </p>
     </div>
@@ -22,10 +22,10 @@ const year = new Date().getFullYear();
     <div
       class="mt-6 md:mt-8 grid grid-cols-12 gap-x-5 md:gap-x-8 gap-y-8 items-start"
     >
-      <div class="col-span-4 sm:col-span-3 md:col-span-3 fade-up">
-        <figure class="relative">
+      <div class="col-span-12 sm:col-span-3 md:col-span-3 fade-up">
+        <figure class="relative w-[120px] sm:w-auto">
           <img
-            src="/img/Lauguico_Sandy_AIHeadshot.png"
+            src="/img/sandy-icon.jpg"
             alt="Sandy Lauguico"
             width="320"
             height="320"
@@ -34,14 +34,14 @@ const year = new Date().getFullYear();
             class="block w-full aspect-square rounded-md object-cover border border-border bg-surface"
           />
           <figcaption
-            class="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-subtle"
+            class="mt-2 font-hand text-[18px] text-subtle"
           >
-            fig. 01
+            fig. 01 · sandy, in the wild
           </figcaption>
         </figure>
       </div>
 
-      <div class="col-span-8 sm:col-span-9 md:col-span-8 min-w-0">
+      <div class="col-span-12 sm:col-span-9 md:col-span-8 min-w-0">
         <h1
           class="font-semibold tracking-tightest text-ink leading-[0.98] fade-up"
           style="font-size: clamp(2.5rem, 7vw, 4.25rem);"
@@ -50,9 +50,9 @@ const year = new Date().getFullYear();
         </h1>
 
         <div
-          class="mt-3 flex items-center gap-3 text-[13px] fade-up"
+          class="mt-3 flex items-center flex-wrap gap-x-3 gap-y-2 text-[13px] fade-up"
         >
-          <span class="relative flex h-2 w-2" aria-hidden="true">
+          <span class="relative flex h-2 w-2 shrink-0" aria-hidden="true">
             <span
               class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/50"
             ></span>
@@ -60,7 +60,7 @@ const year = new Date().getFullYear();
               class="relative inline-flex h-2 w-2 rounded-full bg-accent"
             ></span>
           </span>
-          <span class="font-mono text-[11px] tracking-[0.18em] uppercase text-muted">
+          <span class="font-mono text-[10px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.18em] uppercase text-muted">
             Consulting · Contract · Freelance · Tech Generalist
           </span>
         </div>
@@ -83,7 +83,7 @@ const year = new Date().getFullYear();
           navigating their way into data careers.
         </p>
 
-        <div class="relative z-20 mt-8 flex items-center gap-5 fade-up">
+        <div class="relative z-20 mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 fade-up">
           <a href="#work" class="btn-primary">
             <span>See selected work</span>
             <svg
@@ -103,6 +103,57 @@ const year = new Date().getFullYear();
             label="or send me an email →"
           />
         </div>
+
+        <nav
+          class="md:hidden mt-6 flex items-center gap-1 fade-up"
+          aria-label="Profiles"
+        >
+          <a
+            href="https://github.com/sclauguico"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+            class="grid place-items-center h-9 w-9 rounded-md text-muted hover:text-ink hover:bg-ink/5 transition"
+          >
+            <svg class="h-[17px] w-[17px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.93c.57.1.78-.25.78-.55v-2.02c-3.2.7-3.87-1.37-3.87-1.37-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.23-1.27-5.23-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17a10.93 10.93 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.37-5.25 5.65.41.36.78 1.07.78 2.16v3.2c0 .31.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/>
+            </svg>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/sandy-lauguico/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn"
+            class="grid place-items-center h-9 w-9 rounded-md text-muted hover:text-ink hover:bg-ink/5 transition"
+          >
+            <svg class="h-[17px] w-[17px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.67H9.35V9h3.42v1.56h.04c.48-.9 1.64-1.86 3.37-1.86 3.6 0 4.27 2.37 4.27 5.45v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.78C.8 0 0 .78 0 1.74v20.51C0 23.22.8 24 1.78 24h20.44c.98 0 1.78-.78 1.78-1.75V1.74C24 .78 23.2 0 22.22 0z"/>
+            </svg>
+          </a>
+          <a
+            href="https://medium.com/@sclauguico"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Medium"
+            class="grid place-items-center h-9 w-9 rounded-md text-muted hover:text-ink hover:bg-ink/5 transition"
+          >
+            <svg class="h-[17px] w-[17px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M13.54 12c0 3.04-2.42 5.5-5.4 5.5S2.73 15.04 2.73 12s2.42-5.5 5.4-5.5 5.41 2.46 5.41 5.5zm5.93 0c0 2.86-1.21 5.18-2.7 5.18-1.5 0-2.71-2.32-2.71-5.18s1.21-5.18 2.7-5.18c1.5 0 2.71 2.32 2.71 5.18zM22 12c0 2.56-.42 4.64-.95 4.64-.53 0-.96-2.08-.96-4.64s.43-4.64.96-4.64.95 2.08.95 4.64z"/>
+            </svg>
+          </a>
+          <a
+            href="https://scholar.google.com.ph/citations?user=jiTezCwAAAAJ"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Google Scholar"
+            class="grid place-items-center h-9 w-9 rounded-md text-muted hover:text-ink hover:bg-ink/5 transition"
+          >
+            <svg class="h-[17px] w-[17px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+              <path d="M12 14l6.16-3.42A12 12 0 0 1 12 20a12 12 0 0 1-6.16-9.42L12 14z"/>
+            </svg>
+          </a>
+        </nav>
       </div>
 
       <nav

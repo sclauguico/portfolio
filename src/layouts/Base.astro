@@ -19,13 +19,14 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico" />
+    <link rel="icon" type="image/jpeg" href="/img/sandy-icon.jpg" />
+    <link rel="apple-touch-icon" href="/img/sandy-icon.jpg" />
     <meta name="color-scheme" content="light dark" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
@@ -42,6 +43,7 @@ const {
     </script>
   </head>
   <body class="relative">
+    <div class="grid-paper" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
 
     <header
@@ -127,7 +129,7 @@ const {
       >
         <p>© {new Date().getFullYear()} Sandy Lauguico. All rights reserved.</p>
         <p class="font-mono text-[11px] tracking-widest uppercase">
-          <a href="/og/index.html" class="link-underline hover:text-ink">v1 archive</a>
+          <a href="/og/" class="link-underline hover:text-ink">v1 archive</a>
           <span class="mx-2 opacity-40">·</span>
           <a
             href="https://github.com/sclauguico"
