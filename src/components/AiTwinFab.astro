@@ -115,6 +115,7 @@ const live =
       toggleBtn.setAttribute('aria-expanded', String(open));
       if (toggleLabel) toggleLabel.textContent = open ? 'Close' : 'Ask my AI twin';
       if (open) setTimeout(() => input?.focus(), 0);
+      if (!open) fab.style.transform = '';
     };
 
     toggleBtn?.addEventListener('click', () => setOpen(!open));
@@ -123,10 +124,18 @@ const live =
       if (e.key === 'Escape' && open) setOpen(false);
     });
 
-    input?.addEventListener('focus', () => {
-      setTimeout(() => {
-        input.scrollIntoView({ block: 'center', behavior: 'smooth' });
-      }, 250);
-    });
+    const vv = window.visualViewport;
+    if (vv) {
+      const updateOffset = () => {
+        const offset = window.innerHeight - vv.height - vv.offsetTop;
+        fab.style.transform = open && offset > 0 ? `translateY(-${offset}px)` : '';
+      };
+      vv.addEventListener('resize', updateOffset);
+      vv.addEventListener('scroll', updateOffset);
+      input?.addEventListener('focus', () => setTimeout(updateOffset, 300));
+      input?.addEventListener('blur', () => {
+        fab.style.transform = '';
+      });
+    }
   }
 </script>
