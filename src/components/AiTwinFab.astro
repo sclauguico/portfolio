@@ -13,7 +13,7 @@ const live =
     data-endpoint={endpoint}
   >
     <div
-      class="hidden flex-col w-[calc(100vw-2rem)] sm:w-[360px] max-w-[92vw] h-[70vh] sm:h-[480px] max-h-[calc(100vh-6rem)] mb-3 rounded-lg border border-border bg-surface shadow-xl overflow-hidden"
+      class="hidden flex-col w-[calc(100vw-2rem)] sm:w-[360px] max-w-[92vw] h-[70dvh] sm:h-[480px] max-h-[calc(100dvh-6rem)] mb-3 rounded-lg border border-border bg-surface shadow-xl overflow-hidden"
       data-fab-panel
       role="dialog"
       aria-modal="false"
@@ -121,6 +121,12 @@ const live =
     closeBtn?.addEventListener('click', () => setOpen(false));
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && open) setOpen(false);
+    });
+
+    input?.addEventListener('focus', () => {
+      setTimeout(() => {
+        input.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }, 250);
     });
   }
 </script>
