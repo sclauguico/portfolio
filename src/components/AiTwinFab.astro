@@ -108,6 +108,17 @@ const live =
 
     const vv = window.visualViewport;
 
+    const debugFlag = new URLSearchParams(window.location.search).get('debug') === 'vv';
+    const debugEl = debugFlag ? (() => {
+      const el = document.createElement('div');
+      el.style.cssText =
+        'position:fixed;top:8px;left:8px;z-index:100;padding:6px 8px;' +
+        'background:rgba(0,0,0,0.78);color:#0f0;font:11px/1.3 monospace;' +
+        'border-radius:4px;pointer-events:none;white-space:pre;';
+      document.body.appendChild(el);
+      return el;
+    })() : null;
+
     const reposition = () => {
       if (!panel) return;
       const layoutH = window.innerHeight;
@@ -122,6 +133,14 @@ const live =
       } else {
         panel.style.height = '';
         panel.style.maxHeight = '';
+      }
+      if (debugEl) {
+        debugEl.textContent =
+          `innerH:   ${layoutH}\n` +
+          `vv.h:     ${Math.round(visH)}\n` +
+          `vv.top:   ${Math.round(visTop)}\n` +
+          `overlap:  ${Math.round(keyboardOverlap)}\n` +
+          `open:     ${open}`;
       }
     };
 
