@@ -9,6 +9,8 @@ export interface Env {
   MODEL: string;
   WORKERS_AI_MODEL: string;
   ALLOWED_ORIGINS: string;
+  LANGSMITH_API_KEY?: string;
+  LANGSMITH_PROJECT?: string;
 }
 
 export type Role = 'user' | 'assistant';

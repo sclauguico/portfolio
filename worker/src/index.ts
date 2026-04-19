@@ -1,5 +1,6 @@
 import type { AskRequest, ChatMessage, Env } from './env';
 import { corsHeaders, json } from './http';
+import { logRun } from './langsmith';
 import { runOpenRouter, runWorkersAI } from './providers';
 import { sseToDeltas } from './sse';
 
@@ -19,7 +20,12 @@ function sanitizeHistory(raw: unknown): ChatMessage[] {
     );
 }
 
-async function handleAsk(request: Request, env: Env, cors: Record<string, string>): Promise<Response> {
+async function handleAsk(
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext,
+  cors: Record<string, string>,
+): Promise<Response> {
   let body: AskRequest;
   try {
     body = (await request.json()) as AskRequest;
@@ -33,6 +39,8 @@ async function handleAsk(request: Request, env: Env, cors: Record<string, string
 
   const history = sanitizeHistory(body.history);
   const messages: ChatMessage[] = [...history, { role: 'user', content: message }];
+  const startTime = Date.now();
+  let modelUsed = env.WORKERS_AI_MODEL;
 
   let source = await runWorkersAI(env, messages);
   if (!source) {
@@ -45,9 +53,34 @@ async function handleAsk(request: Request, env: Env, cors: Record<string, string
       );
     }
     source = fallback.source;
+    modelUsed = env.MODEL;
   }
 
-  return new Response(sseToDeltas(source), {
+  const [forUser, forLog] = sseToDeltas(source).tee();
+
+  ctx.waitUntil(
+    (async () => {
+      const reader = forLog.getReader();
+      const decoder = new TextDecoder();
+      let full = '';
+      try {
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          full += decoder.decode(value, { stream: true });
+        }
+      } catch {}
+      await logRun(env, {
+        inputs: messages,
+        output: full,
+        model: modelUsed,
+        startTime,
+        endTime: Date.now(),
+      });
+    })(),
+  );
+
+  return new Response(forUser, {
     status: 200,
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
@@ -58,7 +91,7 @@ async function handleAsk(request: Request, env: Env, cors: Record<string, string
 }
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const origin = request.headers.get('Origin');
     const allowed = env.ALLOWED_ORIGINS.split(',').map((s) => s.trim());
@@ -84,6 +117,6 @@ export default {
       return json({ error: 'method not allowed' }, 405, cors);
     }
 
-    return handleAsk(request, env, cors);
+    return handleAsk(request, env, ctx, cors);
   },
 };
