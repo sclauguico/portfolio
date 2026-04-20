@@ -1,6 +1,7 @@
 import type { AskRequest, ChatMessage, Env } from './env';
 import { corsHeaders, json } from './http';
 import { logRun } from './langsmith';
+import { prefilter, refusalMessage } from './prefilter';
 import { runOpenRouter, runWorkersAI } from './providers';
 import { sseToDeltas } from './sse';
 
@@ -9,7 +10,7 @@ const MAX_MESSAGE_LEN = 1000;
 
 function sanitizeHistory(raw: unknown): ChatMessage[] {
   if (!Array.isArray(raw)) return [];
-  return raw
+  const trimmed = raw
     .slice(-MAX_HISTORY)
     .filter(
       (m): m is ChatMessage =>
@@ -18,6 +19,17 @@ function sanitizeHistory(raw: unknown): ChatMessage[] {
         typeof m.content === 'string' &&
         m.content.length <= MAX_MESSAGE_LEN,
     );
+
+  const clean: ChatMessage[] = [];
+  for (let i = 0; i < trimmed.length; i++) {
+    const m = trimmed[i];
+    if (m.role === 'user' && prefilter(m.content).blocked) {
+      if (i + 1 < trimmed.length && trimmed[i + 1].role === 'assistant') i++;
+      continue;
+    }
+    clean.push(m);
+  }
+  return clean;
 }
 
 async function handleAsk(
@@ -40,6 +52,29 @@ async function handleAsk(
   const history = sanitizeHistory(body.history);
   const messages: ChatMessage[] = [...history, { role: 'user', content: message }];
   const startTime = Date.now();
+
+  const pre = prefilter(message);
+  if (pre.blocked) {
+    const refusal = refusalMessage();
+    ctx.waitUntil(
+      logRun(env, {
+        inputs: messages,
+        output: refusal,
+        model: `prefilter:${pre.tag ?? 'blocked'}`,
+        startTime,
+        endTime: Date.now(),
+      }),
+    );
+    return new Response(refusal, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-store',
+        ...cors,
+      },
+    });
+  }
+
   let modelUsed = env.WORKERS_AI_MODEL;
 
   let source = await runWorkersAI(env, messages);
