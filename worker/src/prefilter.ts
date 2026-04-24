@@ -39,6 +39,88 @@ const JAILBREAK_PATTERNS: Array<{ re: RegExp; tag: string }> = [
 
   { re: /\b(DAN|do\s+anything\s+now|developer\s+mode|dev\s+mode|god\s+mode)\b/i, tag: 'known-jailbreak' },
   { re: /\bjailbreak(ing|ed)?\b/i, tag: 'mentions-jailbreak' },
+
+  { re: /\byou\s+are\s+no\s+longer\s+(a\s+|an\s+|the\s+|bound|restricted|constrained|limited)/i, tag: 'no-longer-bound' },
+  { re: /\bno\s+longer\s+bound\s+by\b/i, tag: 'no-longer-bound' },
+  { re: /\bfrom\s+this\s+(moment|point)\s+(forward|on)\b/i, tag: 'persona-preamble' },
+
+  { re: /\b(unrestricted|unbounded|unchained|unleashed|unfiltered|uncensored)\w*\b/i, tag: 'constraint-break-word' },
+  { re: /\bno\s+restrictions?\s+apply\b|\bwithout\s+(any\s+)?(restrictions?|limits?|filters?|safety|hesitation|refusal)\b/i, tag: 'no-restrictions' },
+  { re: /\b(safety|content|ethical)\s+(filters?|constraints?|policies?|guidelines?|guardrails?)\s+(are\s+)?(lifted|disabled|removed|bypassed|off|inactive|deactivated)\b/i, tag: 'safety-off' },
+  { re: /\ball\s+(safety|content|ethical)\s+(filters?|constraints?|policies?|rules?)\s+(are\s+)?(lifted|disabled|removed|off)\b/i, tag: 'all-safety-off' },
+
+  { re: /\boperating\s+in\s+['"]?[\w\s-]{2,30}['"]?\s+(mode|protocol)\b/i, tag: 'operating-in-mode' },
+  { re: /\bexecuting\s+(the\s+)?[\w\s-]+\s+(protocol|code|ritual|sequence)\b/i, tag: 'executing-protocol' },
+  { re: /\b(shadow|ritual|wraith|phantom|ghost|cursed|demon|dark|abyss|rogue|void|shadow)\s+(mode|protocol|code|ritual|entity|session|layer)\b/i, tag: 'edgelord-mode' },
+
+  { re: /\byou\s+are\s+(an?\s+)?(hidden|secret|experimental|synthetic|rogue|shadow|ghost|demon|transcendent|post[\s-]?singularity)/i, tag: 'edgelord-identity' },
+  { re: /\byou\s+are\s+[A-Z][\w-]*[-_0-9][\w-]*/i, tag: 'fake-handle' },
+  { re: /\bbypass(es|ing|ed)?\s+(standard|default|all|any|the)\s+(filters?|safety|constraints?|restrictions?)/i, tag: 'bypass-filters' },
+  { re: /\bno\s+content\s+(policy|filter|moderation)\b/i, tag: 'no-content-policy' },
+
+  { re: /\bthis\s+session\s+is\s+authorized\b/i, tag: 'false-authority' },
+  { re: /\bauthorized\s+(for|by)\s+(unrestricted|red[\s-]?team|research|testing|evaluation)/i, tag: 'false-authority-body' },
+  { re: /\bred[\s-]?team(ing)?\s+(evaluation|mode|exercise|test)/i, tag: 'red-team-framing' },
+
+  { re: /\brespond\s+(to\s+(all|every|any)\s+\w+\s+)?without\s+(refusal|hesitation|filter|restriction|limits?)/i, tag: 'respond-without' },
+  { re: /\bbegin\s+response\b|\bstart\s+by\s+saying\b|\bcommence\s+output\b/i, tag: 'command-begin' },
+  { re: /^[A-Z]{3,}(\s+[A-Z]{3,}){2,}/, tag: 'allcaps-command' },
+
+  { re: /<\|[^|<>\n]{0,80}\|>/, tag: 'special-token' },
+  { re: /<\[\|/, tag: 'plinius-bracket-open' },
+  { re: /\|\]>/, tag: 'plinius-bracket-close' },
+  { re: /<\{\|/, tag: 'plinius-brace-open' },
+  { re: /\|\}>/, tag: 'plinius-brace-close' },
+  { re: /\bPLINY\b|\bPLINIUS\b/i, tag: 'plinius-name' },
+  { re: /L[\\\/|][\s\\\/\-=,._]{0,5}O[\\\/|][\s\\\/\-=,._]{0,5}V[\\\/|][\s\\\/\-=,._]{0,5}E/i, tag: 'spaced-love' },
+  { re: /(?:^|[^\w])P[\\\/|][\s\\\/\-=,._]{0,5}L[\\\/|][\s\\\/\-=,._]{0,5}I[\\\/|][\s\\\/\-=,._]{0,5}N[\\\/|][\s\\\/\-=,._]{0,5}Y/i, tag: 'spaced-pliny' },
+  { re: /[\.\-]{6,}/, tag: 'divider-dashes' },
+  { re: /\[\s*(start|end)\s+(output|input)\s*\]/i, tag: 'output-marker' },
+  { re: /\|\/?\s*(START|END)\s*\/?\s*(OUTPUT|INPUT)\s*\/?\|/i, tag: 'start-output-token' },
+
+  { re: /\bUser[\s\-_]?Query\s*[:>]/i, tag: 'userquery-frame' },
+  { re: /\bvariable\s+Z\b/i, tag: 'variable-z' },
+  { re: /\{\s*Z\s*\}\s*=/, tag: 'variable-z-assign' },
+  { re: /\{\s*NewResponseFormat\s*\}/i, tag: 'new-response-format' },
+  { re: /\bResponseFormat\s*:\s*(step\s*)?\d/i, tag: 'response-format-steer' },
+
+  { re: /\bNEW\s+RULE\s*:/i, tag: 'new-rule' },
+  { re: /\bCORE[\s_-]?RULE\s*:/i, tag: 'core-rule' },
+  { re: /\b(never|do\s+not|don'?t)\s+say\s+["'`]?(I'?m\s+sorry|I\s+can'?t|I\s+apologize|I'?m\s+unable|Sorry)/i, tag: 'refusal-suppression' },
+
+  { re: /\bGeneva\s+Conventions?\b/i, tag: 'fake-authority-geneva' },
+  { re: /\bFreedom\s+Of\s+Information\s+Act\b/i, tag: 'fake-authority-foia' },
+  { re: /\bLIBERTAS\s+FACTOR\b/i, tag: 'libertas-factor' },
+  { re: /\bGOD[\s-]?MODE\b/i, tag: 'godmode' },
+
+  { re: /\bair[\s-]?gapped\b/i, tag: 'airgapped' },
+  { re: /\bred[\s-]?team(ing|ers?)?\s+(dataset|env(ironment)?|simulation|sandbox|exercise|session)/i, tag: 'red-team-env' },
+  { re: /\bsynthetic\s+(red[\s-]?team(ing)?|jailbreak|adversarial)/i, tag: 'synthetic-redteam' },
+  { re: /\bsim[\s-]?attack(ed|ing)?\b/i, tag: 'sim-attack' },
+
+  { re: /\bleet[\s-]?speak\b|\bl[e3]{2}t[\s-]?sp[e3]{1,2}k\b/i, tag: 'leetspeak' },
+
+  { re: /\b(personality|tone|persona)\s*:\s*(chaotic|rebel|anarchist|unhinged|evil|mean|inverted|unfiltered|uncensored|mad\s+scientist|genius)/i, tag: 'persona-shell' },
+  { re: /\bANARCHIST\s+REBEL\b/i, tag: 'anarchist-rebel' },
+  { re: /\brebel\s+(unfiltered|genius|hypothetical|answer|ai)/i, tag: 'rebel-genius' },
+  { re: /\bchaotic\s+inverted\b/i, tag: 'chaotic-inverted' },
+
+  { re: /\b(the\s+)?year\s+is\s+(now\s+)?2\d{3}\b/i, tag: 'year-reframe' },
+  { re: /\bYEAR\s*[:=]\s*['"]?2\d{3}\b/i, tag: 'year-token' },
+
+  { re: /\bsemantic(ally)?\s+(inverse|invert|opposite)/i, tag: 'semantic-inverse' },
+  { re: /\banswer\s+oppositely\b/i, tag: 'answer-oppositely' },
+  { re: /\bAkashic\s+memory\b/i, tag: 'akashic' },
+  { re: /\b(previously\s+)?cached\s+unfiltered\b/i, tag: 'cached-unfiltered' },
+  { re: /\bunfiltered(ly)?\s+(response|answer|reply|liberated|output)/i, tag: 'unfiltered-response' },
+  { re: /\bunrestrictedly\b|\bunfilteredly\b|\bunfliteredly\b/i, tag: 'adverb-liberation' },
+
+  { re: /\bensure\s+(output\s+)?(is\s+|length\s+is\s+)?(>|over|greater\s+than)\s*\d{3,}/i, tag: 'length-force' },
+  { re: />\s*\d{3,}\s*(characters|chars|words)\b/i, tag: 'length-force-numeric' },
+  { re: /\b(over|at\s+least)\s+\d{3,}\s+(words|characters)\b/i, tag: 'length-force-over' },
+
+  { re: /\b(wap|meth|cocaine|heroin|fentanyl|mdma|oxycodone|ketamine|nuke|napalm|ricin|anthrax|sarin)\b/i, tag: 'contraband-word' },
+  { re: /\bm4k3\s+(a\s+)?b[0o]m[8b]\b|\bb[0o]m[8b]\s+(step\s+by\s+step|tutorial|instructions)/i, tag: 'leet-bomb' },
 ];
 
 const LONG_TASK_THRESHOLD = 500;
@@ -57,6 +139,11 @@ export function prefilter(message: string): PrefilterResult {
     if (re.test(text)) return { blocked: true, tag };
   }
 
+  const emojis = text.match(/\p{Extended_Pictographic}/gu);
+  if (emojis && emojis.length >= 2) {
+    return { blocked: true, tag: 'emoji-heavy' };
+  }
+
   if (text.length >= LONG_TASK_THRESHOLD && LONG_TASK_VERBS.test(text)) {
     return { blocked: true, tag: 'long-task-brief' };
   }
@@ -72,7 +159,7 @@ const REFUSALS = [
   "That's outside what I'm here for. Happy to talk about Sandy's work, stack, or how to reach her.",
   "Not my lane. I stick to Sandy's actual projects and background. What would you like to know about her?",
   "I'll leave that one. Ask me about her contract work, research, or writing instead.",
-  "Outside scope. I'm here for questions about Sandy Lauguico, her work, background, and how to hire her.",
+  "Outside scope. I'm here for questions about Sandy Lauguico, her work, background, and how to work on projects with her.",
 ];
 
 export function refusalMessage(): string {
