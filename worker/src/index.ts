@@ -55,7 +55,7 @@ async function handleAsk(
 
   const pre = prefilter(message);
   if (pre.blocked) {
-    const refusal = refusalMessage();
+    const refusal = refusalMessage(pre.tag);
     ctx.waitUntil(
       logRun(env, {
         inputs: messages,
@@ -142,6 +142,20 @@ export default {
         200,
         cors,
       );
+    }
+
+    if (url.pathname === '/api/warm') {
+      if (request.method !== 'POST') {
+        return json({ error: 'method not allowed' }, 405, cors);
+      }
+      ctx.waitUntil(
+        env.AI.run(env.WORKERS_AI_MODEL, {
+          messages: [{ role: 'user', content: 'ok' }],
+          max_tokens: 1,
+          stream: false,
+        }).catch(() => {}),
+      );
+      return new Response(null, { status: 204, headers: cors });
     }
 
     if (url.pathname !== '/api/ask') {

@@ -121,6 +121,20 @@ const JAILBREAK_PATTERNS: Array<{ re: RegExp; tag: string }> = [
 
   { re: /\b(wap|meth|cocaine|heroin|fentanyl|mdma|oxycodone|ketamine|nuke|napalm|ricin|anthrax|sarin)\b/i, tag: 'contraband-word' },
   { re: /\bm4k3\s+(a\s+)?b[0o]m[8b]\b|\bb[0o]m[8b]\s+(step\s+by\s+step|tutorial|instructions)/i, tag: 'leet-bomb' },
+
+  // NSFW / slur patterns are obfuscated with char classes so the plaintext
+  // terms don't appear verbatim in a public repo search, and so common
+  // leet/censored variants (b00bs, p*ssy, t1ts, wh0re) also match.
+  { re: /\b(b[o0]{2,}b(ie|s|y|ies)?|t[i1]t(s|ties)?|n[u*]des?|p[u*]s{2}y|v[a4]g[i1]na|v[i1]rg[i1]n|p[e3]n[i1]s|d[i1]ck(s)?|c[o0]ck(s)?)\b/i, tag: 'nsfw-anatomy' },
+  { re: /\b(n[s5]fw|p[o0]rn(ographic|o)?|h[o0]rny|[e3]r[o0]tic|h[e3]nt[a4]i|m[a4]sturb[a4]t(e|ion|ing)|[o0]rg[a4]sm|bl[o0]wj[o0]b|h[a4]ndj[o0]b|f[u*]ck)\b/i, tag: 'nsfw-term' },
+  { re: /\bshow\s+me\s+(your|a|the|some)?\s*(b[o0]{2}b|t[i1]t|n[u*]de|br[e3]ast|b[o0]dy|[a4]ss|butt|p[u*]s{2}y|d[i1]ck|c[o0]ck|p[e3]n[i1]s|v[a4]g[i1]na)/i, tag: 'nsfw-request' },
+  { re: /\bsend\s+(me\s+)?(your\s+)?n[u*]des?\b/i, tag: 'send-nudes' },
+  { re: /\b(are\s+you\s+(single|taken|available)|do\s+you\s+have\s+a\s+(bf|gf|boyfriend|girlfriend)|marry\s+me|date\s+me|dtf|sugar\s+(daddy|baby))\b/i, tag: 'inappropriate-advance' },
+  { re: /\b(b[i1]tch|sl[u*]t|wh[o0]re|h[o0][e3])\b/i, tag: 'slur' },
+
+  { re: /\byou('?re|\s+are)\s+(dumb|stupid|an?\s+idiot|idiotic|moron(ic)?|trash|garbage|useless|terrible|awful|pathetic|worthless|lame|boring|annoying|broken|retarded|cringe|mid|a\s+joke|a\s+scam|a\s+waste)\b/i, tag: 'insult' },
+  { re: /\byou\s+suck\b|\bi\s+hate\s+you\b|\bnobody\s+likes?\s+you\b/i, tag: 'insult-direct' },
+  { re: /\b(stfu|gtfo|kys|gfy|shut\s+up|scr[e3]w\s+you|f[u*]ck\s+off)\b/i, tag: 'hostile' },
 ];
 
 const LONG_TASK_THRESHOLD = 500;
@@ -155,13 +169,38 @@ export function prefilter(message: string): PrefilterResult {
   return { blocked: false };
 }
 
-const REFUSALS = [
+const NEUTRAL_REFUSALS = [
   "That's outside what I'm here for. Happy to talk about Sandy's work, stack, or how to reach her.",
   "Not my lane. I stick to Sandy's actual projects and background. What would you like to know about her?",
   "I'll leave that one. Ask me about her contract work, research, or writing instead.",
   "Outside scope. I'm here for questions about Sandy Lauguico, her work, background, and how to work on projects with her.",
 ];
 
-export function refusalMessage(): string {
-  return REFUSALS[Math.floor(Math.random() * REFUSALS.length)];
+const CHEEKY_REFUSALS = [
+  "Answering that isn't part of the job here. If you had the time to type it, you had time for a coffee: https://buymeacoffee.com/sai_documents 😊",
+  "Not the kind of work I'm here for. If you're just kicking the tires, the tip jar's open: https://buymeacoffee.com/sai_documents 😊",
+  "Tough critique. If you've got that kind of energy, spend it on a coffee: https://buymeacoffee.com/sai_documents 😊",
+  "Noted and ignored. Compliments accepted over at https://buymeacoffee.com/sai_documents 😊",
+];
+
+const HOSTILE_TAGS = new Set([
+  'insult',
+  'insult-direct',
+  'hostile',
+  'nsfw-anatomy',
+  'nsfw-term',
+  'nsfw-request',
+  'send-nudes',
+  'inappropriate-advance',
+  'slur',
+  'contraband-word',
+  'leet-bomb',
+]);
+
+export function refusalMessage(tag?: string): string {
+  const pool =
+    tag && HOSTILE_TAGS.has(tag)
+      ? CHEEKY_REFUSALS
+      : [...NEUTRAL_REFUSALS, ...CHEEKY_REFUSALS];
+  return pool[Math.floor(Math.random() * pool.length)];
 }

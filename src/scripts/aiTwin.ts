@@ -20,6 +20,30 @@ function escapeHtml(s: string): string {
   return div.innerHTML;
 }
 
+function escapeAndLink(s: string): string {
+  const urlRe = /https?:\/\/[^\s<>"'`]+/g;
+  let out = '';
+  let last = 0;
+  let m: RegExpExecArray | null;
+  while ((m = urlRe.exec(s)) !== null) {
+    out += escapeHtml(s.slice(last, m.index));
+    let url = m[0];
+    const trail = url.match(/[.,;:!?)\]'"]+$/);
+    let trailing = '';
+    if (trail) {
+      trailing = trail[0];
+      url = url.slice(0, -trailing.length);
+    }
+    out +=
+      `<a href="${url}" target="_blank" rel="noreferrer noopener" ` +
+      `class="font-semibold text-ink underline decoration-ink decoration-2 underline-offset-4 hover:opacity-70 transition">${url}</a>`;
+    if (trailing) out += escapeHtml(trailing);
+    last = m.index + m[0].length;
+  }
+  out += escapeHtml(s.slice(last));
+  return out;
+}
+
 function stripInlineMarkdown(s: string): string {
   return s
     .replace(/\*\*(.+?)\*\*/g, '$1')
@@ -41,7 +65,7 @@ export function renderAssistant(text: string): string {
 
   const flushPara = () => {
     if (para.length) {
-      out.push(`<p class="[&:not(:first-child)]:mt-2">${escapeHtml(para.join(' '))}</p>`);
+      out.push(`<p class="[&:not(:first-child)]:mt-2">${escapeAndLink(para.join(' '))}</p>`);
       para = [];
     }
   };
@@ -64,7 +88,7 @@ export function renderAssistant(text: string): string {
     const bullet = trimmed.match(/^[•\-*]\s+(.*)$/);
     if (bullet) {
       openList();
-      out.push(`<li>${escapeHtml(bullet[1])}</li>`);
+      out.push(`<li>${escapeAndLink(bullet[1])}</li>`);
     } else if (!trimmed) {
       flushPara();
       closeList();
@@ -76,6 +100,13 @@ export function renderAssistant(text: string): string {
   flushPara();
   closeList();
   return out.join('');
+}
+
+let warmed = false;
+export function warm(endpoint: string): void {
+  if (warmed || !endpoint) return;
+  warmed = true;
+  fetch(`${endpoint}/api/warm`, { method: 'POST', keepalive: true }).catch(() => {});
 }
 
 export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.io' }: MountChatOptions): void {

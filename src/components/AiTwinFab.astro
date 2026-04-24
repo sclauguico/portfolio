@@ -51,7 +51,7 @@ const live =
         aria-live="polite"
         aria-atomic="false"
       >
-        <p class="text-subtle italic">Ask my AI twin. Try: "What are you working on right now?"</p>
+        <p class="text-subtle italic">Ask my AI twin. Try: "What relevant experience do you have?"</p>
       </div>
 
       <p class="px-3 pt-2 text-[12px] text-muted border-t border-border bg-bg/60">
@@ -97,7 +97,7 @@ const live =
 )}
 
 <script>
-  import { mountChat } from '@/scripts/aiTwin';
+  import { mountChat, warm } from '@/scripts/aiTwin';
 
   const fab = document.querySelector<HTMLElement>('[data-ai-fab]');
   if (fab) {
@@ -157,7 +157,10 @@ const live =
       toggleBtn.setAttribute('aria-expanded', String(open));
       if (toggleLabel) toggleLabel.textContent = open ? 'Close' : 'Ask my AI twin';
       reposition();
-      if (open) setTimeout(() => input?.focus(), 0);
+      if (open) {
+        warm(endpoint);
+        setTimeout(() => input?.focus(), 0);
+      }
     };
 
     toggleBtn?.addEventListener('click', () => setOpen(!open));
