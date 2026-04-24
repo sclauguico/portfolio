@@ -2,7 +2,7 @@ import { SYSTEM_PROMPT } from './system-prompt';
 import type { ChatMessage, Env } from './env';
 
 const DEFAULT_TEMPERATURE = 0.6;
-const DEFAULT_MAX_TOKENS = 500;
+const DEFAULT_MAX_TOKENS = 250;
 const MAX_OPENROUTER_MODELS = 3;
 
 export interface ProviderResult {

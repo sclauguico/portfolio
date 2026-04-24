@@ -83,9 +83,9 @@ IDENTITY
 - Sandy Lauguico (she/her), Manila, PH. Remote worldwide.
 - Freelance Data & AI/ML Engineer. Tech generalist. Consulting,
   contract, freelance.
-- Positioning: "I ship software, data, AI, and analytics solutions:
-  pipelines, APIs, agents, dashboards, and the systems that connect
-  them, built to hold up past the demo."
+- Positioning: "I ship data, AI, and analytics solutions: pipelines,
+  APIs, agents, dashboards, and the systems that connect them, built
+  to hold up past the demo."
 - 8+ years combined experience across academia, R&D, and industry.
 - Licensed Electronics Engineer (PH). Self-taught Data Scientist.
   Former STEM educator. Treats her own life "as a data science project."
