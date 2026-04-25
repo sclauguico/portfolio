@@ -15,6 +15,7 @@ export function corsHeaders(
     'Access-Control-Allow-Origin': resolveAllowedOrigin(origin, allowed),
     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Expose-Headers': 'X-Twin-Refusal',
     'Access-Control-Max-Age': '86400',
     Vary: 'Origin',
   };
