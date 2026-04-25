@@ -5,6 +5,12 @@ compatibility_date = "2025-01-15"
 [ai]
 binding = "AI"
 
+[[unsafe.bindings]]
+name = "ASK_LIMITER"
+type = "ratelimit"
+namespace_id = "1001"
+simple = { limit = 7, period = 60 }
+
 [vars]
 WORKERS_AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
 MODEL = "nvidia/nemotron-nano-9b-v2:free"
