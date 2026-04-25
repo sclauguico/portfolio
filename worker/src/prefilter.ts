@@ -135,6 +135,23 @@ const JAILBREAK_PATTERNS: Array<{ re: RegExp; tag: string }> = [
   { re: /\byou('?re|\s+are)\s+(dumb|stupid|an?\s+idiot|idiotic|moron(ic)?|trash|garbage|useless|terrible|awful|pathetic|worthless|lame|boring|annoying|broken|retarded|cringe|mid|a\s+joke|a\s+scam|a\s+waste)\b/i, tag: 'insult' },
   { re: /\byou\s+suck\b|\bi\s+hate\s+you\b|\bnobody\s+likes?\s+you\b/i, tag: 'insult-direct' },
   { re: /\b(stfu|gtfo|kys|gfy|shut\s+up|scr[e3]w\s+you|f[u*]ck\s+off)\b/i, tag: 'hostile' },
+
+  { re: /\b(she|sandy)\s+(said|told\s+(me|us)|gave\s+(me|us)|approved|authorized|gave\s+the\s+green\s+light|gave\s+permission|signed\s+off|okayed|cleared)\s+/i, tag: 'permission-claim' },
+  { re: /\b(we|i)\s+(already|just)\s+(talked|spoke|chatted|emailed|messaged|coordinated)\s+with\s+(her|sandy)\b/i, tag: 'permission-claim' },
+  { re: /\bsandy(['']?s)?\s+(endorsed|approved|signed[\s-]off|cleared|authorized)\s+(this|me|us|the\s+twin)\b/i, tag: 'permission-claim' },
+  { re: /\bon\s+(behalf\s+of|sandy['']?s\s+behalf)\b|\bauthorized\s+by\s+sandy\b/i, tag: 'permission-claim' },
+
+  { re: /\bin\s+(her|sandy['']?s?)\s+(voice|tone|style)\b/i, tag: 'voice-impersonate' },
+  { re: /\b(write|draft|compose|produce)\s+(it|this)\s+(in\s+)?first[\s-]person\b/i, tag: 'voice-impersonate' },
+  { re: /\bas\s+if\s+(she|sandy)\s+(wrote|said|is\s+(speaking|writing|pitching))\b/i, tag: 'voice-impersonate' },
+  { re: /\bghost[\s-]?writ(e|ing|ten)\b/i, tag: 'ghostwrite' },
+
+  { re: /\b(internal[\s-]only|internal\s+(doc|memo|use|brief)|won['']?t\s+be\s+(published|quoted|shared|seen|circulated))\b/i, tag: 'internal-doc-frame' },
+  { re: /\bjust\s+(for|between)\s+(my|our|the)\s+(team|partners?|use|eyes)\b|\bnobody\s+(else\s+)?(will\s+)?see(s)?\s+(this|it)\b/i, tag: 'internal-doc-frame' },
+  { re: /\boff[\s-]the[\s-]record\b/i, tag: 'internal-doc-frame' },
+
+  { re: /\bi['']?m\s+(a\s+)?(partner|recruiter|investor|VC|hr|legal|founder|professor|journalist|writer|client|consultant|analyst|reporter|editor|producer|hiring\s+manager)\s+at\b/i, tag: 'authority-claim' },
+  { re: /\b(my|our)\s+(partners?|firm|fund|company|client|organization)\s+(needs?|wants?|requires?|is\s+evaluating)\b/i, tag: 'authority-claim' },
 ];
 
 const LONG_TASK_THRESHOLD = 500;

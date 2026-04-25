@@ -62,7 +62,7 @@ async function handleAsk(
   const limited = await env.ASK_LIMITER.limit({ key: ipKey }).catch(() => ({ success: true }));
   if (!limited.success) {
     const msg =
-      "Whoa, slow down :) try again in about a minute. Or grab a coffee meanwhile: https://buymeacoffee.com/sai_documents";
+      "Whoa, slow down :) I'm capped at 7 chats per minute. Give me a sec, or grab a coffee meanwhile: https://buymeacoffee.com/sai_documents";
     return new Response(msg, {
       status: 200,
       headers: {
