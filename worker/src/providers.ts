@@ -1,7 +1,7 @@
 import { SYSTEM_PROMPT } from './system-prompt';
 import type { ChatMessage, Env } from './env';
 
-const DEFAULT_TEMPERATURE = 0.6;
+const DEFAULT_TEMPERATURE = 0.8;
 const DEFAULT_MAX_TOKENS = 500;
 const MAX_OPENROUTER_MODELS = 3;
 

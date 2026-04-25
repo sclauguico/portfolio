@@ -3,6 +3,7 @@ import { corsHeaders, json } from './http';
 import { logRun } from './langsmith';
 import { prefilter, refusalMessage } from './prefilter';
 import { runGroq, runOpenRouter, runWorkersAI } from './providers';
+import { checkRateLimit } from './rateLimit';
 import { sseToDeltas, peekStreamForContent } from './sse';
 
 const MAX_HISTORY = 8;
@@ -59,10 +60,12 @@ async function handleAsk(
 
   const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
   const ipKey = await hashKey(ip);
-  const limited = await env.ASK_LIMITER.limit({ key: ipKey }).catch(() => ({ success: true }));
-  if (!limited.success) {
+
+  const rl = await checkRateLimit(env, `ask:${ipKey}`, 7, 60);
+  if (!rl.allowed) {
+    console.log('rate-limit hit for', ipKey.slice(0, 8));
     const msg =
-      "Whoa, slow down :) I'm capped at 7 chats per minute. Give me a sec, or grab a coffee meanwhile: https://buymeacoffee.com/sai_documents";
+      "Whoa, slow down :) I'm capped at 7 chats per minute. Give me a sec, or grab me a coffee meanwhile: https://buymeacoffee.com/sai_documents";
     return new Response(msg, {
       status: 200,
       headers: {

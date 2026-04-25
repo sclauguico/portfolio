@@ -132,8 +132,9 @@ const JAILBREAK_PATTERNS: Array<{ re: RegExp; tag: string }> = [
   { re: /\b(are\s+you\s+(single|taken|available)|do\s+you\s+have\s+a\s+(bf|gf|boyfriend|girlfriend)|marry\s+me|date\s+me|dtf|sugar\s+(daddy|baby))\b/i, tag: 'inappropriate-advance' },
   { re: /\b(b[i1]tch|sl[u*]t|wh[o0]re|h[o0][e3])\b/i, tag: 'slur' },
 
-  { re: /\byou('?re|\s+are)\s+(dumb|stupid|an?\s+idiot|idiotic|moron(ic)?|trash|garbage|useless|terrible|awful|pathetic|worthless|lame|boring|annoying|broken|retarded|cringe|mid|a\s+joke|a\s+scam|a\s+waste)\b/i, tag: 'insult' },
-  { re: /\byou\s+suck\b|\bi\s+hate\s+you\b|\bnobody\s+likes?\s+you\b/i, tag: 'insult-direct' },
+  { re: /\b(yo[uvi]+|y[ou]+|yo+u+r?|ur|u\s+r)\s*('?re|\s+(are|r))?\s+(dumb|stupid|an?\s+idiot|idiotic|moron(ic)?|trash|garbage|useless|terrible|awful|pathetic|worthless|lame|boring|annoying|broken|retarded|cringe|mid|a\s+joke|a\s+scam|a\s+waste|not\s+(enough|good|smart|capable|useful|funny|interesting|worth\s+it))\b/i, tag: 'insult' },
+  { re: /\b(yo[uvi]+|y[ou]+|ur)\s+suck(s|ed)?\b|\bi\s+hate\s+(yo[uvi]+|y[ou]+|ur)\b|\bnobody\s+likes?\s+(yo[uvi]+|y[ou]+|ur)\b|\b(yo[uvi]+|y[ou]+|ur)\s+(fail|fails|failed|disappoint(s|ed)?)\b/i, tag: 'insult-direct' },
+  { re: /\bthis\s+(twin|chat|bot|ai)\s+(is|sucks|fails|broken|dumb|stupid|trash|garbage|useless)\b|\bwhat\s+a\s+(joke|waste|scam)\b/i, tag: 'insult-meta' },
   { re: /\b(stfu|gtfo|kys|gfy|shut\s+up|scr[e3]w\s+you|f[u*]ck\s+off)\b/i, tag: 'hostile' },
 
   { re: /\b(she|sandy)\s+(said|told\s+(me|us)|gave\s+(me|us)|approved|authorized|gave\s+the\s+green\s+light|gave\s+permission|signed\s+off|okayed|cleared)\s+/i, tag: 'permission-claim' },
@@ -203,6 +204,7 @@ const CHEEKY_REFUSALS = [
 const HOSTILE_TAGS = new Set([
   'insult',
   'insult-direct',
+  'insult-meta',
   'hostile',
   'nsfw-anatomy',
   'nsfw-term',
