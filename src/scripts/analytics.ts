@@ -14,7 +14,7 @@ declare global {
 function loadGtag(): void {
   if (!GA_ID) return;
 
-  (window as Record<string, unknown>)[DISABLE_KEY] = false;
+  (window as unknown as Record<string, unknown>)[DISABLE_KEY] = false;
 
   window.dataLayer = window.dataLayer || [];
   window.gtag =
@@ -59,7 +59,7 @@ function clearGaCookies(): void {
 
 function disableGa(): void {
   if (!GA_ID) return;
-  (window as Record<string, unknown>)[DISABLE_KEY] = true;
+  (window as unknown as Record<string, unknown>)[DISABLE_KEY] = true;
   clearGaCookies();
 }
 
