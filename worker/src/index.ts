@@ -120,7 +120,8 @@ async function handleAsk(
     status: 200,
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'no-store',
+      'Cache-Control': 'no-store, no-transform',
+      'X-Accel-Buffering': 'no',
       ...cors,
     },
   });
