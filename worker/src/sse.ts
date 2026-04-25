@@ -1,3 +1,53 @@
+function extractDelta(payload: string): string {
+  try {
+    const parsed = JSON.parse(payload);
+    return parsed?.choices?.[0]?.delta?.content ?? parsed?.response ?? '';
+  } catch {
+    return '';
+  }
+}
+
+export async function peekStreamForContent(
+  source: ReadableStream<Uint8Array>,
+  timeoutMs = 5000,
+): Promise<{ hasContent: boolean; replay: ReadableStream<Uint8Array> }> {
+  const [probe, replay] = source.tee();
+  const reader = probe.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  let timer: ReturnType<typeof setTimeout> | undefined;
+
+  return new Promise((resolve) => {
+    const finish = (hasContent: boolean) => {
+      if (timer !== undefined) clearTimeout(timer);
+      reader.cancel().catch(() => {});
+      resolve({ hasContent, replay });
+    };
+    timer = setTimeout(() => finish(false), timeoutMs);
+
+    (async () => {
+      try {
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) { finish(false); return; }
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() ?? '';
+          for (const line of lines) {
+            const t = line.trim();
+            if (!t.startsWith('data:')) continue;
+            const payload = t.slice(5).trim();
+            if (payload === '[DONE]') continue;
+            if (extractDelta(payload)) { finish(true); return; }
+          }
+        }
+      } catch {
+        finish(false);
+      }
+    })();
+  });
+}
+
 export function sseToDeltas(
   source: ReadableStream<Uint8Array>,
 ): ReadableStream<Uint8Array> {

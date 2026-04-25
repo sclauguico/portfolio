@@ -186,8 +186,8 @@ export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.i
     const bubble = document.createElement('div');
     bubble.className =
       role === 'user'
-        ? 'inline-block max-w-[85%] px-3 py-2 rounded-md bg-ink text-bg text-[13.5px] leading-snug whitespace-pre-wrap'
-        : 'text-ink text-[13.5px] leading-relaxed';
+        ? 'inline-block max-w-[85%] px-3 py-2 rounded-md bg-ink text-bg text-[13.5px] leading-snug whitespace-pre-wrap break-words'
+        : 'text-ink text-[13.5px] leading-relaxed break-words';
     bubble.innerHTML = role === 'user' ? escapeHtml(text) : renderAssistant(text);
     wrap.appendChild(bubble);
     transcript.appendChild(wrap);
@@ -212,11 +212,20 @@ export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.i
     const bubble = addBubble('assistant', '');
     let accumulated = '';
 
+    const ctrl = new AbortController();
+    let stallTimer: number | undefined;
+    const resetStall = () => {
+      if (stallTimer !== undefined) clearTimeout(stallTimer);
+      stallTimer = window.setTimeout(() => ctrl.abort(), 25000);
+    };
+
     try {
+      resetStall();
       const res = await fetch(`${endpoint}/api/ask`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message, history: history.slice(0, -1) }),
+        signal: ctrl.signal,
       });
 
       if (!res.ok || !res.body) {
@@ -237,15 +246,28 @@ export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.i
       while (true) {
         const { value, done } = await reader.read();
         if (done) break;
+        resetStall();
         accumulated += decoder.decode(value, { stream: true });
         bubble.innerHTML = renderAssistant(accumulated);
         transcript.scrollTop = transcript.scrollHeight;
       }
-      history.push({ role: 'assistant', content: accumulated });
+
+      if (!accumulated.trim()) {
+        bubble.innerHTML = escapeHtml(
+          `My twin went quiet. Try again, or email ${fallbackEmail}.`,
+        );
+      } else {
+        history.push({ role: 'assistant', content: accumulated });
+      }
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'unknown error';
-      bubble.innerHTML = escapeHtml(`Network hiccup: ${msg}. Try again, or email ${fallbackEmail}.`);
+      const aborted = err instanceof DOMException && err.name === 'AbortError';
+      bubble.innerHTML = escapeHtml(
+        aborted
+          ? `Took too long. Try again, or email ${fallbackEmail}.`
+          : `Network hiccup: ${err instanceof Error ? err.message : 'unknown error'}. Try again, or email ${fallbackEmail}.`,
+      );
     } finally {
+      if (stallTimer !== undefined) clearTimeout(stallTimer);
       setBusy(false);
       input.focus();
       rotateSlots();

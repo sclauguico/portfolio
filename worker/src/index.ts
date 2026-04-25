@@ -3,7 +3,7 @@ import { corsHeaders, json } from './http';
 import { logRun } from './langsmith';
 import { prefilter, refusalMessage } from './prefilter';
 import { runOpenRouter, runWorkersAI } from './providers';
-import { sseToDeltas } from './sse';
+import { sseToDeltas, peekStreamForContent } from './sse';
 
 const MAX_HISTORY = 8;
 const MAX_MESSAGE_LEN = 1000;
@@ -79,6 +79,17 @@ async function handleAsk(
   let modelUsed = env.WORKERS_AI_MODEL;
 
   let source = await runWorkersAI(env, messages);
+
+  if (source) {
+    const peek = await peekStreamForContent(source, 5000);
+    if (!peek.hasContent) {
+      console.warn('Workers AI returned empty stream; falling back');
+      source = null;
+    } else {
+      source = peek.replay;
+    }
+  }
+
   if (!source) {
     const fallback = await runOpenRouter(env, messages);
     if (!fallback.source) {
@@ -120,7 +131,8 @@ async function handleAsk(
     status: 200,
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'no-store',
+      'Cache-Control': 'no-store, no-transform',
+      'X-Accel-Buffering': 'no',
       ...cors,
     },
   });
