@@ -5,8 +5,12 @@ export interface Env {
       input: Record<string, unknown>,
     ) => Promise<ReadableStream<Uint8Array> | unknown>;
   };
-  ASK_LIMITER: {
+  ASK_LIMITER?: {
     limit: (opts: { key: string }) => Promise<{ success: boolean }>;
+  };
+  RL_KV?: {
+    get: (key: string) => Promise<string | null>;
+    put: (key: string, value: string, opts?: { expirationTtl?: number }) => Promise<void>;
   };
   OPENROUTER_API_KEY: string;
   GROQ_API_KEY?: string;
