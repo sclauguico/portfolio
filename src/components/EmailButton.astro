@@ -5,6 +5,7 @@ interface Props {
   className?: string;
   label?: string;
   icon?: boolean;
+  surface?: string;
 }
 
 const {
@@ -13,6 +14,7 @@ const {
   className = '',
   label,
   icon = true,
+  surface = 'unknown',
 } = Astro.props;
 
 const displayLabel = label ?? email;
@@ -27,7 +29,7 @@ const triggerClass =
     : `text-[13.5px] text-ink link-underline ${className}`;
 ---
 
-<details class="email-menu relative inline-block" data-email={email}>
+<details class="email-menu relative inline-block" data-email={email} data-surface={surface}>
   <summary
     class={`${triggerClass} list-none cursor-pointer select-none`}
     role="button"
@@ -190,8 +192,15 @@ const triggerClass =
 </style>
 
 <script>
+  import { track } from '@/scripts/track';
+
   document.querySelectorAll<HTMLDetailsElement>('.email-menu').forEach((el) => {
     const email = el.dataset.email ?? '';
+    const surface = el.dataset.surface ?? 'unknown';
+
+    el.querySelector<HTMLElement>('summary')?.addEventListener('click', () => {
+      if (!el.open) track('contact_email_click', { surface });
+    });
 
     document.addEventListener('click', (e) => {
       if (el.open && !el.contains(e.target as Node)) {
