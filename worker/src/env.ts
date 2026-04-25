@@ -6,6 +6,8 @@ export interface Env {
     ) => Promise<ReadableStream<Uint8Array> | unknown>;
   };
   OPENROUTER_API_KEY: string;
+  GROQ_API_KEY?: string;
+  GROQ_MODEL?: string;
   MODEL: string;
   WORKERS_AI_MODEL: string;
   ALLOWED_ORIGINS: string;

@@ -2,7 +2,7 @@ import type { AskRequest, ChatMessage, Env } from './env';
 import { corsHeaders, json } from './http';
 import { logRun } from './langsmith';
 import { prefilter, refusalMessage } from './prefilter';
-import { runOpenRouter, runWorkersAI } from './providers';
+import { runGroq, runOpenRouter, runWorkersAI } from './providers';
 import { sseToDeltas, peekStreamForContent } from './sse';
 
 const MAX_HISTORY = 8;
@@ -87,6 +87,21 @@ async function handleAsk(
       source = null;
     } else {
       source = peek.replay;
+    }
+  }
+
+  if (!source) {
+    const groq = await runGroq(env, messages);
+    if (groq.source) {
+      const peek = await peekStreamForContent(groq.source, 5000);
+      if (peek.hasContent) {
+        source = peek.replay;
+        modelUsed = env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+      } else {
+        console.warn('Groq returned empty stream; falling back');
+      }
+    } else if (groq.detail !== 'no GROQ_API_KEY') {
+      console.warn('Groq failed:', groq.status, groq.detail.slice(0, 200));
     }
   }
 
