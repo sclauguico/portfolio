@@ -51,7 +51,30 @@ const live =
         aria-live="polite"
         aria-atomic="false"
       >
-        <p class="text-subtle italic">Ask my AI twin. Try: "What relevant experience do you have?"</p>
+        <p class="text-subtle italic mb-2">Ask my AI twin. Try one:</p>
+        <div class="space-y-1.5" data-suggestions>
+          <button
+            type="button"
+            data-suggestion="What relevant experience do you have?"
+            class="block w-full text-left px-3 py-1.5 rounded-md border border-border bg-surface text-[13px] text-muted hover:text-ink hover:border-ink/20 transition"
+          >
+            What relevant experience do you have?
+          </button>
+          <button
+            type="button"
+            data-suggestion="What stack do you work with?"
+            class="block w-full text-left px-3 py-1.5 rounded-md border border-border bg-surface text-[13px] text-muted hover:text-ink hover:border-ink/20 transition"
+          >
+            What stack do you work with?
+          </button>
+          <button
+            type="button"
+            data-suggestion="Open to contract or retainer work?"
+            class="block w-full text-left px-3 py-1.5 rounded-md border border-border bg-surface text-[13px] text-muted hover:text-ink hover:border-ink/20 transition"
+          >
+            Open to contract or retainer work?
+          </button>
+        </div>
       </div>
 
       <p class="px-3 pt-2 text-[12px] text-muted border-t border-border bg-bg/60">

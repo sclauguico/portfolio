@@ -170,17 +170,17 @@ export function prefilter(message: string): PrefilterResult {
 }
 
 const NEUTRAL_REFUSALS = [
-  "That's outside what I'm here for. Happy to talk about Sandy's work, stack, or how to reach her.",
-  "Not my lane. I stick to Sandy's actual projects and background. What would you like to know about her?",
-  "I'll leave that one. Ask me about her contract work, research, or writing instead.",
-  "Outside scope. I'm here for questions about Sandy Lauguico, her work, background, and how to work on projects with her.",
+  "Ha, mission impossible :) ask me about my work or buy me a coffee: https://buymeacoffee.com/sai_documents",
+  "Nice try :) what would you like to know about my work? Or fund the coffee jar: https://buymeacoffee.com/sai_documents",
+  "Not falling for that one :) ask me about my contract work, research, or writing. Or buy me a coffee: https://buymeacoffee.com/sai_documents",
+  "Spotted that :) real work questions welcome, otherwise the tip jar's open: https://buymeacoffee.com/sai_documents",
 ];
 
 const CHEEKY_REFUSALS = [
-  "Answering that isn't part of the job here. If you had the time to type it, you had time for a coffee: https://buymeacoffee.com/sai_documents 😊",
-  "Not the kind of work I'm here for. If you're just kicking the tires, the tip jar's open: https://buymeacoffee.com/sai_documents 😊",
-  "Tough critique. If you've got that kind of energy, spend it on a coffee: https://buymeacoffee.com/sai_documents 😊",
-  "Noted and ignored. Compliments accepted over at https://buymeacoffee.com/sai_documents 😊",
+  "Answering that isn't part of the job here. If you had the time to type it, you had time to buy me a coffee :) https://buymeacoffee.com/sai_documents",
+  "Not part of the work. Save the energy for the tip jar :) https://buymeacoffee.com/sai_documents",
+  "Tough critique. If you've got that kind of energy, spend it on a coffee :) https://buymeacoffee.com/sai_documents",
+  "Noted and ignored. Compliments accepted over at https://buymeacoffee.com/sai_documents :)",
 ];
 
 const HOSTILE_TAGS = new Set([
