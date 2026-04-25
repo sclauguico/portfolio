@@ -35,6 +35,6 @@ export function mountSocialTracking(): void {
     if (!link) return;
     const network = networkFor(link.href);
     if (!network) return;
-    track('social_click', { network, surface: surfaceFor(link) });
+    track(`${network}_click`, { surface: surfaceFor(link) });
   });
 }

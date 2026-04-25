@@ -29,6 +29,37 @@ export async function runWorkersAI(
   }
 }
 
+export async function runGroq(
+  env: Env,
+  messages: ChatMessage[],
+): Promise<ProviderResult> {
+  if (!env.GROQ_API_KEY) {
+    return { source: null, status: 0, detail: 'no GROQ_API_KEY' };
+  }
+
+  const model = env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${env.GROQ_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model,
+      stream: true,
+      temperature: DEFAULT_TEMPERATURE,
+      max_tokens: DEFAULT_MAX_TOKENS,
+      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
+    }),
+  });
+
+  if (!res.ok || !res.body) {
+    const detail = await res.text().catch(() => '');
+    return { source: null, status: res.status, detail };
+  }
+  return { source: res.body, status: 200, detail: '' };
+}
+
 export async function runOpenRouter(
   env: Env,
   messages: ChatMessage[],

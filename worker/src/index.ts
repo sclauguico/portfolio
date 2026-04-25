@@ -2,11 +2,19 @@ import type { AskRequest, ChatMessage, Env } from './env';
 import { corsHeaders, json } from './http';
 import { logRun } from './langsmith';
 import { prefilter, refusalMessage } from './prefilter';
-import { runOpenRouter, runWorkersAI } from './providers';
+import { runGroq, runOpenRouter, runWorkersAI } from './providers';
 import { sseToDeltas, peekStreamForContent } from './sse';
 
 const MAX_HISTORY = 8;
 const MAX_MESSAGE_LEN = 1000;
+
+async function hashKey(input: string): Promise<string> {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+    .slice(0, 16);
+}
 
 function sanitizeHistory(raw: unknown): ChatMessage[] {
   if (!Array.isArray(raw)) return [];
@@ -49,6 +57,23 @@ async function handleAsk(
   if (!message) return json({ error: 'missing message' }, 400, cors);
   if (message.length > MAX_MESSAGE_LEN) return json({ error: 'message too long' }, 413, cors);
 
+  const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
+  const ipKey = await hashKey(ip);
+  const limited = await env.ASK_LIMITER.limit({ key: ipKey }).catch(() => ({ success: true }));
+  if (!limited.success) {
+    const msg =
+      "Whoa, slow down :) try again in about a minute. Or grab a coffee meanwhile: https://buymeacoffee.com/sai_documents";
+    return new Response(msg, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-store',
+        'X-Twin-Refusal': 'rate-limit',
+        ...cors,
+      },
+    });
+  }
+
   const history = sanitizeHistory(body.history);
   const messages: ChatMessage[] = [...history, { role: 'user', content: message }];
   const startTime = Date.now();
@@ -87,6 +112,21 @@ async function handleAsk(
       source = null;
     } else {
       source = peek.replay;
+    }
+  }
+
+  if (!source) {
+    const groq = await runGroq(env, messages);
+    if (groq.source) {
+      const peek = await peekStreamForContent(groq.source, 5000);
+      if (peek.hasContent) {
+        source = peek.replay;
+        modelUsed = env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+      } else {
+        console.warn('Groq returned empty stream; falling back');
+      }
+    } else if (groq.detail !== 'no GROQ_API_KEY') {
+      console.warn('Groq failed:', groq.status, groq.detail.slice(0, 200));
     }
   }
 
