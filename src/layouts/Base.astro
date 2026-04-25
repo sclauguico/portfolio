@@ -154,7 +154,11 @@ const {
 
     <script>
       import { initAnalytics } from '@/scripts/analytics';
+      import { mountSectionDwell } from '@/scripts/sectionDwell';
+      import { mountSocialTracking } from '@/scripts/socialTrack';
       initAnalytics();
+      mountSectionDwell();
+      mountSocialTracking();
     </script>
 
     <script is:inline>

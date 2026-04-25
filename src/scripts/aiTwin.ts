@@ -1,3 +1,5 @@
+import { track } from '@/scripts/track';
+
 type Role = 'user' | 'assistant';
 type Message = { role: Role; content: string };
 
@@ -5,6 +7,7 @@ export interface MountChatOptions {
   root: HTMLElement;
   endpoint: string;
   fallbackEmail?: string;
+  surface?: 'fab' | 'inline';
 }
 
 const THINKING_DOTS =
@@ -13,6 +16,20 @@ const THINKING_DOTS =
   '<span class="h-1.5 w-1.5 rounded-full bg-subtle animate-pulse" style="animation-delay:200ms"></span>' +
   '<span class="h-1.5 w-1.5 rounded-full bg-subtle animate-pulse" style="animation-delay:400ms"></span>' +
   '</span>';
+
+const SUGGESTION_POOL = [
+  'What relevant experience do you have?',
+  'What stack do you work with?',
+  'Open to contract or retainer work?',
+  'What recent projects have you worked on?',
+  'Tell me about your research',
+  'What kind of clients do you work with?',
+  'What have you written about?',
+  "What's your education?",
+];
+
+const SUGGESTION_BTN_CLASS =
+  'block w-full text-left px-3 py-1.5 rounded-md border border-border bg-surface text-[13px] text-muted hover:text-ink hover:border-ink/20 transition';
 
 function escapeHtml(s: string): string {
   const div = document.createElement('div');
@@ -109,7 +126,7 @@ export function warm(endpoint: string): void {
   fetch(`${endpoint}/api/warm`, { method: 'POST', keepalive: true }).catch(() => {});
 }
 
-export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.io' }: MountChatOptions): void {
+export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.io', surface = 'inline' }: MountChatOptions): void {
   const transcript = root.querySelector<HTMLElement>('[data-transcript]');
   const form = root.querySelector<HTMLFormElement>('[data-chat-form]');
   const input = root.querySelector<HTMLInputElement>('[data-chat-input]');
@@ -123,8 +140,47 @@ export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.i
   let history: Message[] = [];
   let busy = false;
 
+  const slots: string[] = SUGGESTION_POOL.slice(0, 3);
+  let nextIdx = 3;
+  let pendingReplaceIdx: number | null = null;
+  let freeFormPointer = 0;
+
+  const renderSuggestions = () => {
+    transcript.querySelector<HTMLElement>('[data-suggestions]')?.remove();
+    if (slots.length === 0) return;
+    const container = document.createElement('div');
+    container.className = 'mt-3 space-y-1.5';
+    container.dataset.suggestions = '';
+    slots.forEach((text, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.dataset.suggestion = text;
+      btn.dataset.slotIndex = String(i);
+      btn.className = SUGGESTION_BTN_CLASS;
+      btn.textContent = text;
+      container.appendChild(btn);
+    });
+    transcript.appendChild(container);
+    transcript.scrollTop = transcript.scrollHeight;
+  };
+
+  const rotateSlots = () => {
+    if (pendingReplaceIdx === null) return;
+    const i = pendingReplaceIdx;
+    if (nextIdx < SUGGESTION_POOL.length) {
+      slots[i] = SUGGESTION_POOL[nextIdx];
+      nextIdx++;
+    } else {
+      slots.splice(i, 1);
+    }
+    pendingReplaceIdx = null;
+  };
+
   const addBubble = (role: Role, text: string): HTMLElement => {
-    if (transcript.querySelector('.italic')) transcript.innerHTML = '';
+    if (role === 'user') {
+      transcript.querySelector<HTMLElement>('p.italic')?.remove();
+      transcript.querySelector<HTMLElement>('[data-suggestions]')?.remove();
+    }
     const wrap = document.createElement('div');
     wrap.className = role === 'user' ? 'mt-3 flex justify-end' : 'mt-3';
     const bubble = document.createElement('div');
@@ -151,6 +207,7 @@ export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.i
     setBusy(true);
     addBubble('user', message);
     history.push({ role: 'user', content: message });
+    track('ai_twin_message_sent', { length: message.length, surface });
 
     const bubble = addBubble('assistant', '');
     let accumulated = '';
@@ -170,6 +227,11 @@ export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.i
         return;
       }
 
+      const refusalTag = res.headers.get('X-Twin-Refusal');
+      if (refusalTag) {
+        track('ai_twin_refusal', { tag: refusalTag, surface });
+      }
+
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
       while (true) {
@@ -186,6 +248,8 @@ export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.i
     } finally {
       setBusy(false);
       input.focus();
+      rotateSlots();
+      renderSuggestions();
     }
   };
 
@@ -194,6 +258,12 @@ export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.i
     const msg = input.value.trim();
     if (!msg) return;
     input.value = '';
+    if (slots.length > 0) {
+      pendingReplaceIdx = freeFormPointer % slots.length;
+      freeFormPointer++;
+    } else {
+      pendingReplaceIdx = null;
+    }
     void ask(msg);
   });
 
@@ -203,12 +273,22 @@ export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.i
     if (!btn || busy) return;
     const msg = btn.dataset.suggestion?.trim();
     if (!msg) return;
+    const slotStr = btn.dataset.slotIndex;
+    pendingReplaceIdx = slotStr !== undefined ? parseInt(slotStr, 10) : null;
     void ask(msg);
   });
 
   reset?.addEventListener('click', () => {
     history = [];
     transcript.innerHTML = initialTranscript;
+    slots.length = 0;
+    slots.push(...SUGGESTION_POOL.slice(0, 3));
+    nextIdx = 3;
+    pendingReplaceIdx = null;
+    freeFormPointer = 0;
+    renderSuggestions();
     input.focus();
   });
+
+  renderSuggestions();
 }

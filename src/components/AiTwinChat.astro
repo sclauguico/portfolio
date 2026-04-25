@@ -44,29 +44,7 @@ const live =
         aria-atomic="false"
       >
         <p class="text-subtle italic mb-2">Try one:</p>
-        <div class="space-y-1.5" data-suggestions>
-          <button
-            type="button"
-            data-suggestion="What relevant experience do you have?"
-            class="block w-full text-left px-3 py-1.5 rounded-md border border-border bg-surface text-[13px] text-muted hover:text-ink hover:border-ink/20 transition"
-          >
-            What relevant experience do you have?
-          </button>
-          <button
-            type="button"
-            data-suggestion="What stack do you work with?"
-            class="block w-full text-left px-3 py-1.5 rounded-md border border-border bg-surface text-[13px] text-muted hover:text-ink hover:border-ink/20 transition"
-          >
-            What stack do you work with?
-          </button>
-          <button
-            type="button"
-            data-suggestion="Open to contract or retainer work?"
-            class="block w-full text-left px-3 py-1.5 rounded-md border border-border bg-surface text-[13px] text-muted hover:text-ink hover:border-ink/20 transition"
-          >
-            Open to contract or retainer work?
-          </button>
-        </div>
+        <div class="space-y-1.5" data-suggestions></div>
       </div>
 
       <form class="mt-3 flex gap-2" data-chat-form>
@@ -127,7 +105,7 @@ const live =
   const card = document.querySelector<HTMLElement>('[data-ai-card]');
   if (card) {
     const endpoint = card.dataset.endpoint ?? '';
-    mountChat({ root: card, endpoint });
+    mountChat({ root: card, endpoint, surface: 'inline' });
     warm(endpoint);
   }
 </script>

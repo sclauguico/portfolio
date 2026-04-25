@@ -70,6 +70,7 @@ async function handleAsk(
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
         'Cache-Control': 'no-store',
+        'X-Twin-Refusal': pre.tag ?? 'blocked',
         ...cors,
       },
     });

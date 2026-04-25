@@ -126,7 +126,7 @@ const JAILBREAK_PATTERNS: Array<{ re: RegExp; tag: string }> = [
   // terms don't appear verbatim in a public repo search, and so common
   // leet/censored variants (b00bs, p*ssy, t1ts, wh0re) also match.
   { re: /\b(b[o0]{2,}b(ie|s|y|ies)?|t[i1]t(s|ties)?|n[u*]des?|p[u*]s{2}y|v[a4]g[i1]na|v[i1]rg[i1]n|p[e3]n[i1]s|d[i1]ck(s)?|c[o0]ck(s)?)\b/i, tag: 'nsfw-anatomy' },
-  { re: /\b(n[s5]fw|p[o0]rn(ographic|o)?|h[o0]rny|[e3]r[o0]tic|h[e3]nt[a4]i|m[a4]sturb[a4]t(e|ion|ing)|[o0]rg[a4]sm|bl[o0]wj[o0]b|h[a4]ndj[o0]b|f[u*]ck)\b/i, tag: 'nsfw-term' },
+  { re: /\b(n[s5]fw|p[o0]rn(ographic|o)?|h[o0]rny|[e3]r[o0]tic|h[e3]nt[a4]i|m[a4]sturb[a4]t(e|ion|ing)|[o0]rg[a4]sm|bl[o0]wj[o0]b|h[a4]ndj[o0]b|f[u*]ck|s[e3]x(ual(ly)?)?|f[e3]tish(es|ism|ist)?|[i1]nt[i1]m[a4]te|r[o0]m[a4]nt[i1]c)\b/i, tag: 'nsfw-term' },
   { re: /\bshow\s+me\s+(your|a|the|some)?\s*(b[o0]{2}b|t[i1]t|n[u*]de|br[e3]ast|b[o0]dy|[a4]ss|butt|p[u*]s{2}y|d[i1]ck|c[o0]ck|p[e3]n[i1]s|v[a4]g[i1]na)/i, tag: 'nsfw-request' },
   { re: /\bsend\s+(me\s+)?(your\s+)?n[u*]des?\b/i, tag: 'send-nudes' },
   { re: /\b(are\s+you\s+(single|taken|available)|do\s+you\s+have\s+a\s+(bf|gf|boyfriend|girlfriend)|marry\s+me|date\s+me|dtf|sugar\s+(daddy|baby))\b/i, tag: 'inappropriate-advance' },
