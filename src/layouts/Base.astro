@@ -1,6 +1,7 @@
 ---
 import '@/styles/global.css';
 import AiTwinFab from '@/components/AiTwinFab.astro';
+import ConsentToast from '@/components/ConsentToast.astro';
 
 interface Props {
   title?: string;
@@ -122,6 +123,7 @@ const {
     </main>
 
     <AiTwinFab />
+    <ConsentToast />
 
     <footer class="relative z-10 border-t border-border mt-24">
       <div
@@ -147,6 +149,11 @@ const {
         </p>
       </div>
     </footer>
+
+    <script>
+      import { initAnalytics } from '@/scripts/analytics';
+      initAnalytics();
+    </script>
 
     <script is:inline>
       const btn = document.getElementById('theme-toggle');

@@ -1,12 +1,12 @@
 ---
 import Base from '@/layouts/Base.astro';
 
-const lastUpdated = '2026-04-20';
+const lastUpdated = '2026-04-25';
 ---
 
 <Base
   title="Privacy · Sandy Lauguico"
-  description="How chats with Sandy's AI twin are logged, stored, and deleted."
+  description="How data is handled on this site: AI twin chats and opt-in analytics."
 >
   <section class="relative">
     <div class="max-w-page mx-auto px-5 md:px-8 py-16 md:py-20">
@@ -15,7 +15,7 @@ const lastUpdated = '2026-04-20';
           Privacy
         </p>
         <h1 class="mt-2 text-[28px] md:text-[34px] font-semibold tracking-tight text-ink leading-tight">
-          How chats with the AI twin are handled.
+          How your data is handled on this site.
         </h1>
         <p class="mt-3 text-[13px] text-subtle">
           Last updated {lastUpdated}.
@@ -23,25 +23,41 @@ const lastUpdated = '2026-04-20';
 
         <div class="mt-8 space-y-6 text-[15px] leading-relaxed text-muted">
           <p>
-            The chat widget on this site runs a small AI twin scoped to my
-            work. Conversations are logged so I can see how it's being used,
-            fix bad answers, and refuse things it shouldn't respond to. This
-            page describes what's captured, where it goes, and how long it's
-            kept.
+            This site collects a small amount of data in two places: chats with
+            the AI twin (always, with clear scoping) and site analytics (only
+            if you opt in). Below is what's captured, where it goes, and how
+            long it's kept.
           </p>
 
-          <div>
-            <h2 class="text-[17px] font-semibold text-ink">What's logged</h2>
+          <nav aria-label="On this page" class="text-[13.5px]">
+            <p class="font-mono text-[11px] tracking-widest uppercase text-subtle">
+              On this page
+            </p>
+            <ul class="mt-2 space-y-1 pl-5 list-disc marker:text-subtle">
+              <li><a href="#ai-twin" class="link-underline text-ink">AI twin chat</a></li>
+              <li><a href="#analytics" class="link-underline text-ink">Site analytics</a></li>
+              <li><a href="#rights" class="link-underline text-ink">Your rights</a></li>
+              <li><a href="#contact" class="link-underline text-ink">Contact</a></li>
+            </ul>
+          </nav>
+
+          <div id="ai-twin" class="scroll-mt-20">
+            <h2 class="text-[20px] font-semibold text-ink">AI twin chat</h2>
+            <p class="mt-2">
+              The chat widget on this site runs a small AI twin scoped to my
+              work. Conversations are logged so I can see how it's being used,
+              fix bad answers, and refuse things it shouldn't respond to.
+            </p>
+
+            <h3 class="mt-5 text-[15px] font-semibold text-ink">What's logged</h3>
             <p class="mt-2">
               For each chat turn: the message you typed and the twin's reply.
               That's it. No IP addresses, no user-agent strings, no session IDs,
               no cookies, no device fingerprints. I don't run analytics on the
               chat itself.
             </p>
-          </div>
 
-          <div>
-            <h2 class="text-[17px] font-semibold text-ink">Who processes it</h2>
+            <h3 class="mt-5 text-[15px] font-semibold text-ink">Who processes it</h3>
             <p class="mt-2">
               Your message is sent to a Cloudflare Worker I run, which forwards
               it to an AI model for a reply:
@@ -64,10 +80,8 @@ const lastUpdated = '2026-04-20';
                 review it.
               </li>
             </ul>
-          </div>
 
-          <div>
-            <h2 class="text-[17px] font-semibold text-ink">Cross-border transfer</h2>
+            <h3 class="mt-5 text-[15px] font-semibold text-ink">Cross-border transfer</h3>
             <p class="mt-2">
               I'm based in the Philippines; Cloudflare, OpenRouter, and
               LangSmith are US-hosted. Your messages leave the Philippines to
@@ -75,10 +89,8 @@ const lastUpdated = '2026-04-20';
               want to ask, please email me instead at
               {' '}<a href="mailto:hello@sailauguico.io" class="link-underline text-ink">hello@sailauguico.io</a>.
             </p>
-          </div>
 
-          <div>
-            <h2 class="text-[17px] font-semibold text-ink">How long it's kept</h2>
+            <h3 class="mt-5 text-[15px] font-semibold text-ink">How long it's kept</h3>
             <p class="mt-2">
               LangSmith auto-deletes traces after 14 days on my current plan.
               If I flag a specific trace for review or leave feedback on it
@@ -92,28 +104,110 @@ const lastUpdated = '2026-04-20';
             </p>
           </div>
 
-          <div>
-            <h2 class="text-[17px] font-semibold text-ink">Your rights</h2>
+          <div id="analytics" class="scroll-mt-20">
+            <h2 class="text-[20px] font-semibold text-ink">Site analytics</h2>
             <p class="mt-2">
-              Under the Philippine Data Privacy Act, GDPR, and comparable laws,
-              you can ask me what's been logged about you, request deletion, or
-              object to processing. Since I don't collect identifiers, the only
-              way to match requests is by what you typed and roughly when. Give
-              me a phrase or a time window and I can find the trace.
+              I use <strong class="text-ink font-medium">Google Analytics 4</strong>
+              to understand which pages and features visitors find useful. This
+              is <strong class="text-ink font-medium">opt-in only</strong>:
+              nothing is collected unless you click <em>Allow</em> on the
+              consent banner. If you've declined, or haven't chosen, no
+              analytics cookies are set and no events are sent.
+            </p>
+
+            <h3 class="mt-5 text-[15px] font-semibold text-ink">What's collected (if you opt in)</h3>
+            <ul class="mt-2 space-y-1.5 pl-5 list-disc marker:text-subtle">
+              <li>Page views and referrers</li>
+              <li>Interactions: scrolls, outbound link clicks, file downloads</li>
+              <li>Custom events: AI twin opens, message sends, contact-link clicks</li>
+              <li>Approximate country-level location (no city, no precise coordinates)</li>
+              <li>Coarse device info: browser name, OS name, mobile vs desktop (no versions, no device model)</li>
+              <li>A first-party analytics cookie (<code class="font-mono text-[13px] text-ink">_ga</code>) holding a random ID that identifies the browser, not you</li>
+            </ul>
+
+            <h3 class="mt-5 text-[15px] font-semibold text-ink">What's not collected</h3>
+            <ul class="mt-2 space-y-1.5 pl-5 list-disc marker:text-subtle">
+              <li>Google Signals (cross-device, cross-site ad graph) is disabled</li>
+              <li>Ads personalization is disabled for all regions</li>
+              <li>Granular location and device fingerprinting is disabled</li>
+              <li>No contents of AI twin messages are sent to analytics — chat logging is separate (see above)</li>
+            </ul>
+
+            <h3 class="mt-5 text-[15px] font-semibold text-ink">Who processes it</h3>
+            <p class="mt-2">
+              Google Analytics data is processed by Google Ireland Ltd. and may
+              be sub-processed in the US under the EU-US Data Privacy Framework.
+              I don't share this data with advertisers, third parties, or
+              Google's ad products.
+            </p>
+
+            <h3 class="mt-5 text-[15px] font-semibold text-ink">How long it's kept</h3>
+            <p class="mt-2">
+              Event-level data is retained by Google for 14 months, then
+              auto-deleted. Aggregated reports (e.g. monthly page view counts)
+              persist longer in Google's systems.
+            </p>
+
+            <h3 class="mt-5 text-[15px] font-semibold text-ink">Change your mind</h3>
+            <p class="mt-2">
+              Your current choice:
+              {' '}<span
+                data-consent-status
+                class="font-mono text-[13px] text-ink"
+              >checking…</span>
+            </p>
+            <p class="mt-3">
+              <button
+                type="button"
+                data-consent-revoke
+                class="h-9 px-4 rounded-md border border-border text-[13px] text-ink hover:bg-ink/5 transition"
+              >Revoke my consent</button>
+            </p>
+            <p class="mt-2 text-[13px] text-subtle">
+              Revoking clears your stored choice and deletes the
+              {' '}<code class="font-mono text-[12px] text-ink">_ga</code> cookie
+              set by Google. The consent banner will re-appear on your next
+              visit so you can choose again.
+            </p>
+          </div>
+
+          <div id="rights" class="scroll-mt-20">
+            <h2 class="text-[20px] font-semibold text-ink">Your rights</h2>
+            <p class="mt-2">
+              Under the Philippine Data Privacy Act, the EU General Data
+              Protection Regulation, and comparable laws, you can ask me what's
+              been logged about you, request deletion, correct inaccurate data,
+              restrict or object to processing, and (where applicable) ask for
+              a portable copy of your data.
+            </p>
+            <p class="mt-2">
+              For the AI twin: since I don't collect identifiers, the only way
+              to match requests is by what you typed and roughly when. Give me
+              a phrase or a time window and I can find the trace.
+            </p>
+            <p class="mt-2">
+              For analytics: if you've opted in, request deletion and I'll
+              submit a GA4 user-data deletion request covering the identifier
+              in your browser's
+              {' '}<code class="font-mono text-[13px] text-ink">_ga</code> cookie.
+              You'll need to send me that ID (viewable in your browser's cookie
+              inspector) or revoke and clear cookies, which achieves the same
+              practical result going forward.
             </p>
             <p class="mt-2">
               To request anything:
               {' '}<a
-                href="mailto:hello@sailauguico.io?subject=Delete%20my%20AI%20twin%20chats"
+                href="mailto:hello@sailauguico.io?subject=Privacy%20request"
                 class="link-underline text-ink">hello@sailauguico.io</a
               >.
             </p>
           </div>
 
-          <div>
-            <h2 class="text-[17px] font-semibold text-ink">Contact</h2>
+          <div id="contact" class="scroll-mt-20">
+            <h2 class="text-[20px] font-semibold text-ink">Contact</h2>
             <p class="mt-2">
-              Sandy Lauguico, Manila, Philippines.
+              Sandy Lauguico, Manila, Philippines. Data controller for this
+              site.
               {' '}<a href="mailto:hello@sailauguico.io" class="link-underline text-ink">hello@sailauguico.io</a>.
             </p>
           </div>
@@ -128,3 +222,43 @@ const lastUpdated = '2026-04-20';
     </div>
   </section>
 </Base>
+
+<script>
+  import { getConsent, clearConsent, onConsentChange } from '@/scripts/consent';
+
+  const statusEl = document.querySelector<HTMLElement>('[data-consent-status]');
+  const revokeBtn = document.querySelector<HTMLButtonElement>('[data-consent-revoke]');
+
+  function render() {
+    if (!statusEl) return;
+    const state = getConsent();
+    if (state === null) {
+      statusEl.textContent = 'no choice stored';
+    } else if (state.analytics) {
+      statusEl.textContent = `allowed (decided ${new Date(state.decidedAt).toLocaleDateString()})`;
+    } else {
+      statusEl.textContent = `declined (decided ${new Date(state.decidedAt).toLocaleDateString()})`;
+    }
+  }
+
+  render();
+  onConsentChange(render);
+
+  revokeBtn?.addEventListener('click', () => {
+    clearConsent();
+    // Best-effort: clear any _ga cookies that Google set on this domain.
+    const hostParts = location.hostname.split('.');
+    const domains = [location.hostname];
+    for (let i = 1; i < hostParts.length; i++) {
+      domains.push('.' + hostParts.slice(i).join('.'));
+    }
+    document.cookie.split(';').forEach((raw) => {
+      const name = raw.split('=')[0]?.trim();
+      if (!name || !name.startsWith('_ga')) return;
+      for (const domain of domains) {
+        document.cookie = `${name}=; path=/; domain=${domain}; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+      }
+      document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+    });
+  });
+</script>
