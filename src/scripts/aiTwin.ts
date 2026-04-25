@@ -186,8 +186,8 @@ export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.i
     const bubble = document.createElement('div');
     bubble.className =
       role === 'user'
-        ? 'inline-block max-w-[85%] px-3 py-2 rounded-md bg-ink text-bg text-[13.5px] leading-snug whitespace-pre-wrap'
-        : 'text-ink text-[13.5px] leading-relaxed';
+        ? 'inline-block max-w-[85%] px-3 py-2 rounded-md bg-ink text-bg text-[13.5px] leading-snug whitespace-pre-wrap break-words'
+        : 'text-ink text-[13.5px] leading-relaxed break-words';
     bubble.innerHTML = role === 'user' ? escapeHtml(text) : renderAssistant(text);
     wrap.appendChild(bubble);
     transcript.appendChild(wrap);
