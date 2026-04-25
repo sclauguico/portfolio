@@ -197,6 +197,15 @@ export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.i
     void ask(msg);
   });
 
+  transcript.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement | null;
+    const btn = target?.closest<HTMLElement>('[data-suggestion]');
+    if (!btn || busy) return;
+    const msg = btn.dataset.suggestion?.trim();
+    if (!msg) return;
+    void ask(msg);
+  });
+
   reset?.addEventListener('click', () => {
     history = [];
     transcript.innerHTML = initialTranscript;
