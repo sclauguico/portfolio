@@ -501,7 +501,7 @@
     background-image: linear-gradient(to right bottom,
      rgba(151, 65, 249, 0.2), 
      rgba(125, 18, 247, 0.2)),
-    url("../img/sandy-dp.jpg");
+    url("/img/sandy-icon.jpg");
   background-size: cover;
   background-position: center;
 }
