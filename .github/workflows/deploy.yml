@@ -34,7 +34,7 @@ jobs:
         run: npm run build
         env:
           PUBLIC_AI_ENDPOINT: ${{ secrets.PUBLIC_AI_ENDPOINT }}
-          PUBLIC_GA_ID: ${{ secrets.PUBLIC_GA_ID }}
+          PUBLIC_GA_ID: ${{ vars.PUBLIC_GA_ID }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
