@@ -6,7 +6,7 @@ const DISABLE_KEY = `ga-disable-${GA_ID}` as const;
 
 declare global {
   interface Window {
-    dataLayer: unknown[];
+    dataLayer: IArguments[];
     gtag: (...args: unknown[]) => void;
   }
 }
@@ -17,8 +17,14 @@ function loadGtag(): void {
   (window as unknown as Record<string, unknown>)[DISABLE_KEY] = false;
 
   window.dataLayer = window.dataLayer || [];
-  window.gtag =
-    window.gtag ?? ((...args: unknown[]) => window.dataLayer.push(args));
+  if (!window.gtag) {
+    // gtag.js consumes IArguments-shaped entries from dataLayer; pushing
+    // an Array (e.g. via rest params) silently fails to register commands.
+    window.gtag = function gtag() {
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer.push(arguments as unknown as IArguments);
+    };
+  }
 
   if (document.getElementById(SCRIPT_ID)) return;
 
