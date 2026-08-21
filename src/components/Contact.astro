@@ -2,6 +2,7 @@
 import SectionHeader from './SectionHeader.astro';
 import AiTwinChat from './AiTwinChat.astro';
 import EmailButton from './EmailButton.astro';
+import { CONTACT_EMAIL } from '@/data/site';
 ---
 
 <section id="contact" class="relative">
@@ -23,7 +24,7 @@ import EmailButton from './EmailButton.astro';
           </p>
 
           <div class="mt-6 flex flex-wrap gap-2">
-            <EmailButton email="hello@sailauguico.io" surface="contact" />
+            <EmailButton email={CONTACT_EMAIL} surface="contact" />
             <a
               href="https://calendar.app.google/Vnf9K3sskPxhSc5u6"
               target="_blank"

@@ -1,5 +1,6 @@
 ---
 import EmailButton from './EmailButton.astro';
+import { CONTACT_EMAIL } from '@/data/site';
 const year = new Date().getFullYear();
 ---
 
@@ -98,7 +99,7 @@ const year = new Date().getFullYear();
             >
           </a>
           <EmailButton
-            email="hello@sailauguico.io"
+            email={CONTACT_EMAIL}
             variant="link"
             label="or send me an email →"
             surface="hero"

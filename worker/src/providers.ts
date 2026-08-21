@@ -1,4 +1,5 @@
 import { SYSTEM_PROMPT } from './system-prompt';
+import { SITE_URL } from './config';
 import type { ChatMessage, Env } from './env';
 
 const DEFAULT_TEMPERATURE = 0.8;
@@ -77,7 +78,7 @@ export async function runOpenRouter(
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${env.OPENROUTER_API_KEY}`,
-      'HTTP-Referer': 'https://sailauguico.io',
+      'HTTP-Referer': SITE_URL,
       'X-Title': 'Sandy Lauguico AI Twin',
     },
     body: JSON.stringify({

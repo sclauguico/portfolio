@@ -1,3 +1,4 @@
+import { CONTACT_EMAIL } from '@/data/site';
 import { track } from '@/scripts/track';
 
 type Role = 'user' | 'assistant';
@@ -126,7 +127,7 @@ export function warm(endpoint: string): void {
   fetch(`${endpoint}/api/warm`, { method: 'POST', keepalive: true }).catch(() => {});
 }
 
-export function mountChat({ root, endpoint, fallbackEmail = 'hello@sailauguico.io', surface = 'inline' }: MountChatOptions): void {
+export function mountChat({ root, endpoint, fallbackEmail = CONTACT_EMAIL, surface = 'inline' }: MountChatOptions): void {
   const transcript = root.querySelector<HTMLElement>('[data-transcript]');
   const form = root.querySelector<HTMLFormElement>('[data-chat-form]');
   const input = root.querySelector<HTMLInputElement>('[data-chat-input]');

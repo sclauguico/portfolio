@@ -1,5 +1,6 @@
 ---
 import Base from '@/layouts/Base.astro';
+import { CONTACT_EMAIL } from '@/data/site';
 
 const lastUpdated = '2026-04-25';
 ---
@@ -87,7 +88,7 @@ const lastUpdated = '2026-04-25';
               LangSmith are US-hosted. Your messages leave the Philippines to
               be processed and stored. If that's not acceptable for what you
               want to ask, please email me instead at
-              {' '}<a href="mailto:hello@sailauguico.io" class="link-underline text-ink">hello@sailauguico.io</a>.
+              {' '}<a href={`mailto:${CONTACT_EMAIL}`} class="link-underline text-ink">{CONTACT_EMAIL}</a>.
             </p>
 
             <h3 class="mt-5 text-[15px] font-semibold text-ink">How long it's kept</h3>
@@ -197,8 +198,8 @@ const lastUpdated = '2026-04-25';
             <p class="mt-2">
               To request anything:
               {' '}<a
-                href="mailto:hello@sailauguico.io?subject=Privacy%20request"
-                class="link-underline text-ink">hello@sailauguico.io</a
+                href={`mailto:${CONTACT_EMAIL}?subject=Privacy%20request`}
+                class="link-underline text-ink">{CONTACT_EMAIL}</a
               >.
             </p>
           </div>
@@ -208,7 +209,7 @@ const lastUpdated = '2026-04-25';
             <p class="mt-2">
               Sandy Lauguico, Manila, Philippines. Data controller for this
               site.
-              {' '}<a href="mailto:hello@sailauguico.io" class="link-underline text-ink">hello@sailauguico.io</a>.
+              {' '}<a href={`mailto:${CONTACT_EMAIL}`} class="link-underline text-ink">{CONTACT_EMAIL}</a>.
             </p>
           </div>
         </div>
