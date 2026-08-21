@@ -16,7 +16,7 @@ id = "a8750245071b4d95a6daa42a4bfafe63"
 WORKERS_AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
 MODEL = "nvidia/nemotron-nano-9b-v2:free"
 GROQ_MODEL = "llama-3.3-70b-versatile"
-ALLOWED_ORIGINS = "https://sailauguico.io,http://localhost:4321"
+ALLOWED_ORIGINS = "https://sailauguico.com,http://localhost:4321"
 LANGSMITH_PROJECT = "sandy-twin-prod"
 
 # Secrets (set via `wrangler secret put OPENROUTER_API_KEY`):
@@ -24,8 +24,8 @@ LANGSMITH_PROJECT = "sandy-twin-prod"
 # - GROQ_API_KEY  (fallback when Workers AI quota is exhausted)
 # - LANGSMITH_API_KEY  (optional; if unset, no traces are logged)
 
-# To bind to a custom domain (api.sailauguico.io) AFTER migrating DNS to Cloudflare,
+# To bind to a custom domain (api.sailauguico.com) AFTER pointing DNS at Cloudflare,
 # uncomment and adjust:
 # [[routes]]
-# pattern = "api.sailauguico.io/*"
-# zone_name = "sailauguico.io"
+# pattern = "api.sailauguico.com/*"
+# zone_name = "sailauguico.com"

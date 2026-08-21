@@ -6,6 +6,6 @@
 //   - worker/wrangler.toml  (ALLOWED_ORIGINS, and the custom-domain route)
 // The worker mirrors these values in worker/src/config.ts.
 
-export const DOMAIN = 'sailauguico.io';
+export const DOMAIN = 'sailauguico.com';
 export const SITE_URL = `https://${DOMAIN}`;
 export const CONTACT_EMAIL = `hello@${DOMAIN}`;
