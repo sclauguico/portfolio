@@ -67,9 +67,9 @@ Redeploy to apply.
 
 ## Custom domain (optional)
 
-To serve at `api.sailauguico.com` instead of `*.workers.dev`:
+To serve at `api.example.com` instead of `*.workers.dev`:
 
-1. Point DNS for `sailauguico.com` at Cloudflare (free, ~10 min).
+1. Register a domain and point its DNS at Cloudflare (free, ~10 min).
 2. Uncomment the `[[routes]]` block in `wrangler.toml`.
 3. `npm run deploy`.
 
