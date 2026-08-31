@@ -1,0 +1,28 @@
+---
+/**
+ * A margin note in the author's hand — working shown beside the finished
+ * page. Every formula is drawn from Sandy's own published or shipped work,
+ * not decorative math: least squares from the R regression workshop,
+ * gradient descent from the ML projects, the Denavit–Hartenberg transform
+ * from the IEEE inverse-kinematics paper.
+ *
+ * Placed only in real whitespace, never behind body copy, and hidden below
+ * lg where there is no margin to spare.
+ */
+interface Props {
+  note?: string;
+  /** Degrees of tilt, so they read as written rather than set. */
+  tilt?: number;
+  class?: string;
+}
+const { note, tilt = -2, class: className = '' } = Astro.props;
+---
+
+<div
+  class={`scribble hidden lg:block ${className}`}
+  style={`transform: rotate(${tilt}deg);`}
+  aria-hidden="true"
+>
+  <p class="text-[20px] leading-tight"><slot /></p>
+  {note && <p class="scribble-note mt-0.5 text-[16px]">{note}</p>}
+</div>

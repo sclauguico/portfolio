@@ -27,10 +27,10 @@ const live =
     )}
   </div>
 
-  <h3 class="mt-4 text-[16px] font-semibold tracking-tight text-ink">
+  <h3 class="mt-4 text-[13px] font-bold tracking-tight text-ink">
     Ask my AI twin.
   </h3>
-  <p class="mt-2 text-[13.5px] leading-relaxed text-muted">
+  <p class="mt-2 text-[12.5px] leading-[1.75] text-muted">
     A small agent trained on my projects, writing, and background. Skip the
     scroll; ask what you actually want to know.
   </p>
@@ -38,7 +38,7 @@ const live =
   {live ? (
     <>
       <div
-        class="mt-4 rounded-md border border-border bg-bg/60 p-3 h-60 overflow-y-auto text-[13.5px] leading-relaxed"
+        class="mt-4 rounded-[2px] border border-border bg-bg/60 p-3 h-60 overflow-y-auto text-[12.5px] leading-relaxed"
         data-transcript
         aria-live="polite"
         aria-atomic="false"
@@ -58,7 +58,7 @@ const live =
           autocomplete="off"
           maxlength="1000"
           required
-          class="flex-1 h-9 px-3 rounded-md bg-surface border border-border text-[13.5px] text-ink placeholder:text-subtle focus:outline-none focus:border-accent/60 focus:ring-2 focus:ring-accent/20 transition"
+          class="flex-1 min-w-0 h-9 px-3 rounded-[3px] bg-surface border border-border text-[12.5px] text-ink placeholder:text-subtle focus:outline-none focus:border-accent/60 focus:ring-2 focus:ring-accent/20 transition"
         />
         <button
           type="submit"

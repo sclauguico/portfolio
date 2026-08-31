@@ -10,17 +10,39 @@ interface Props {
   title: string;
   kicker?: string;
   discipline: Discipline;
+  space?: 'tight' | 'normal' | 'loose';
 }
-const { id, index, label, title, kicker, discipline } = Astro.props;
+const { id, index, label, title, kicker, discipline, space } = Astro.props;
 const list = projects.filter((p) => p.discipline === discipline);
+
+// Two unequal columns rather than a 2×2 grid. The right column is narrower
+// and starts lower, so nothing in the section lines up across the gutter.
+const left = list.filter((_, i) => i % 2 === 0);
+const right = list.filter((_, i) => i % 2 === 1);
 ---
 
 <section id={id} class="relative">
-  <SectionHeader index={index} label={label} title={title} kicker={kicker} />
+  <SectionHeader index={index} label={label} title={title} kicker={kicker} space={space}>
+    <slot name="note" slot="note" />
+  </SectionHeader>
 
-  <div class="max-w-page mx-auto px-5 md:px-8">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      {list.map((p, i) => <ProjectCard project={p} number={i + 1} />)}
+  <div class="max-w-page mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-[7fr_5fr] gap-x-8 md:gap-x-16 gap-y-16 md:gap-y-24">
+      <div class="flex flex-col gap-16 md:gap-28">
+        {
+          left.map((p, i) => (
+            <ProjectCard project={p} number={i * 2 + 1} shape={i * 2} />
+          ))
+        }
+      </div>
+
+      <div class="flex flex-col gap-16 md:gap-28 md:pt-32">
+        {
+          right.map((p, i) => (
+            <ProjectCard project={p} number={i * 2 + 2} shape={i * 2 + 1} />
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>

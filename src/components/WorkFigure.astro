@@ -1,0 +1,80 @@
+---
+import { projects, type Discipline } from '@/data/projects';
+
+/**
+ * The portfolio, plotted rather than described.
+ *
+ * Every number here is computed from projects.ts at build time — nothing is
+ * hardcoded, so the figure stays honest as projects are added. A unit chart
+ * (one mark per project) rather than a bar chart, because n = 14 is small
+ * enough to show every observation instead of aggregating it away.
+ */
+const order: Discipline[] = ['DE', 'DS', 'ML', 'AI'];
+const label: Record<Discipline, string> = {
+  DE: 'Data Engineering',
+  DS: 'Data Science',
+  ML: 'Machine Learning',
+  AI: 'AI Engineering',
+};
+
+const rows = order.map((d) => ({
+  key: d,
+  name: label[d],
+  n: projects.filter((p) => p.discipline === d).length,
+}));
+
+const total = projects.length;
+const widest = Math.max(...rows.map((r) => r.n));
+---
+
+<section id="work" class="relative">
+  <div class="max-w-page mx-auto px-6 md:px-10 pt-28 md:pt-40">
+    <div class="hairline fade-up" aria-hidden="true"></div>
+
+    <figure class="mt-8 grid grid-cols-12 gap-x-0 md:gap-x-8 gap-y-8">
+      <figcaption class="col-span-12 md:col-span-3 fade-up">
+        <p class="mono-label">fig. 02</p>
+        <p class="mt-2 text-[13.5px] leading-relaxed text-muted">
+          {total} selected projects, by discipline. One mark per project.
+        </p>
+      </figcaption>
+
+      <div class="col-span-12 md:col-span-7 fade-up" style="--stagger: 1;">
+        <div class="flex flex-col gap-5">
+          {
+            rows.map((row) => (
+              <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+                <p class="mono-label w-full sm:w-[9.5rem] shrink-0 text-ink/70">{row.name}</p>
+
+                <div
+                  class="flex flex-wrap items-center gap-1.5"
+                  role="img"
+                  aria-label={`${row.name}: ${row.n} projects`}
+                >
+                  {Array.from({ length: row.n }).map(() => (
+                    <span class="h-3 w-3 rounded-[2px] bg-ink/55" />
+                  ))}
+                </div>
+
+                <p class="mono-label tnum ml-auto">
+                  {String(row.n).padStart(2, '0')}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="mt-7 pt-5 border-t border-border" aria-hidden="true"></div>
+      </div>
+
+      <p
+        class="hidden md:block col-span-2 mono-label opacity-50 text-right fade-up"
+        style="--stagger: 2;"
+      >
+        n = {total}
+        <br />
+        max = {widest}
+      </p>
+    </figure>
+  </div>
+</section>

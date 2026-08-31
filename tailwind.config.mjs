@@ -15,7 +15,6 @@ export default {
         'accent-ink': 'rgb(var(--accent-ink) / <alpha-value>)',
       },
       fontFamily: {
-        serif: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
         sans: ['Geist', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'Menlo', 'monospace'],
       },
@@ -24,7 +23,7 @@ export default {
       },
       maxWidth: {
         prose: '62ch',
-        page: '960px',
+        page: '1140px',
       },
     },
   },

@@ -3,28 +3,33 @@
 @tailwind utilities;
 
 @layer base {
+  /* Tonal, not grey. Every neutral carries a rose undertone, so the page
+     reads soft and warm without any actual colour arriving. --rose is the
+     one chromatic note and it is decorative only: it never sets text. */
   :root {
     --bg: 250 245 236;
-    --surface: 253 249 242;
-    --border: 36 28 24 / 0.1;
+    --surface: 253 250 244;
+    --border: 36 28 24 / 0.12;
     --ink: 36 28 24;
     --muted: 92 78 70;
-    --subtle: 148 132 122;
-    --accent: 92 116 72;
+    --subtle: 118 104 96;
+    --accent: 36 28 24;
     --accent-ink: 250 245 236;
-    --ring: 92 116 72 / 0.35;
+    --ring: 36 28 24 / 0.25;
+    --rose: 176 116 108;
   }
 
   :root.dark {
-    --bg: 20 17 15;
-    --surface: 28 24 21;
-    --border: 240 232 220 / 0.1;
+    --bg: 26 22 19;
+    --surface: 34 29 25;
+    --border: 244 238 228 / 0.12;
     --ink: 244 238 228;
     --muted: 202 188 174;
-    --subtle: 168 154 142;
-    --accent: 178 206 150;
-    --accent-ink: 20 17 15;
-    --ring: 178 206 150 / 0.4;
+    --subtle: 162 148 136;
+    --accent: 244 238 228;
+    --accent-ink: 26 22 19;
+    --ring: 244 238 228 / 0.3;
+    --rose: 206 152 140;
   }
 
   html {
@@ -33,6 +38,12 @@
     font-family: theme('fontFamily.sans');
     background: rgb(var(--bg));
     color: rgb(var(--ink));
+    scroll-behavior: smooth;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
   }
 
   body {
@@ -42,159 +53,245 @@
     font-feature-settings: 'ss01', 'cv11';
   }
 
+  /* Sticky masthead is 3.5rem; keep anchor targets clear of it. */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
   ::selection {
-    background: rgb(var(--accent));
-    color: rgb(var(--accent-ink));
+    background: rgb(var(--ink));
+    color: rgb(var(--bg));
   }
 
   :focus-visible {
-    outline: 2px solid rgb(var(--accent));
+    outline: 2px solid rgb(var(--ink));
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 3px;
+  }
+
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    padding: 0.5rem 0.875rem;
+    border-radius: 6px;
+    background: rgb(var(--ink));
+    color: rgb(var(--bg));
+    font-size: 0.8125rem;
+    transform: translateY(-200%);
+    transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
   }
 }
 
 @layer components {
-  .grain {
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.04;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* ---- Type -------------------------------------------------------- */
+
+  /* Large calm headline. Light weight at size reads composed rather than
+     shouty, which is the whole brief. */
+  .display {
+    font-weight: 400;
+    letter-spacing: -0.028em;
+    line-height: 1.0;
+    /* Optical margin: the round shoulder of a cap S sits visually inset
+       against the flat stems below it. Nudge left to hang it true. */
+    margin-left: -0.035em;
+    text-wrap: balance;
   }
 
-  :root.dark .grain {
-    opacity: 0.07;
-    mix-blend-mode: screen;
-  }
-
-  .grid-paper {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image:
-      linear-gradient(to right, rgb(var(--ink) / 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(var(--ink) / 0.05) 1px, transparent 1px);
-    background-size: 28px 28px;
-    mask-image: radial-gradient(ellipse at center, black 40%, transparent 90%);
-    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 90%);
-  }
-
-  :root.dark .grid-paper {
-    background-image:
-      linear-gradient(to right, rgb(var(--ink) / 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(var(--ink) / 0.06) 1px, transparent 1px);
-  }
-
-  .font-hand {
-    font-family: 'Caveat', ui-rounded, system-ui, cursive;
-    letter-spacing: 0;
-    font-weight: 500;
+  .heading {
+    font-weight: 450;
+    letter-spacing: -0.018em;
+    line-height: 1.16;
+    /* Balance the rag instead of letting the box decide where lines end. */
+    text-wrap: balance;
   }
 
   .mono-label {
     font-family: theme('fontFamily.mono');
     font-size: 0.6875rem;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: rgb(var(--subtle));
     font-weight: 500;
+    font-variant-numeric: tabular-nums;
   }
 
-  .link-underline {
-    background-image: linear-gradient(rgb(var(--ink)), rgb(var(--ink)));
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    background-size: 0 1px;
-    transition: background-size 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  .tnum {
+    font-variant-numeric: tabular-nums;
   }
 
-  .link-underline:hover {
-    background-size: 100% 1px;
+  /* Justified setting needs hyphenation, or the short measure opens
+     rivers of white space between words. */
+  .justified {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    /* A long unbreakable token in a justified line pushed 3px past the
+       viewport on phones. Never let one word set the box width. */
+    overflow-wrap: break-word;
   }
+
+  /* Justify only where the measure is wide enough to carry it. On a narrow
+     column justified setting opens rivers, so phones stay ragged-right. */
+  @media (min-width: 768px) {
+    .justified {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+  }
+
+  /* An aside in the author's own hand, not a system label. */
+  .aside {
+    font-family: 'Caveat', ui-rounded, system-ui, cursive;
+    font-weight: 500;
+    color: rgb(var(--subtle));
+    letter-spacing: 0.01em;
+  }
+
+  /* Margin notes: working shown in pencil beside the finished page. Real
+     formulas from Sandy's own domains, never generic math wallpaper. */
+  .scribble {
+    font-family: 'Caveat', ui-rounded, system-ui, cursive;
+    font-weight: 500;
+    color: rgb(var(--ink));
+    opacity: 0.26;
+    line-height: 1.35;
+    user-select: none;
+    transition: opacity 600ms ease;
+  }
+
+  :root.dark .scribble {
+    opacity: 0.3;
+  }
+
+  .scribble:hover {
+    opacity: 0.5;
+  }
+
+  .scribble-note {
+    color: rgb(var(--rose));
+  }
+
+  /* β̂ — the estimator, not the population parameter. Caveat has no
+     combining-circumflex glyph, so the hat is drawn rather than typed. */
+  .scribble .hat {
+    position: relative;
+    display: inline-block;
+  }
+
+  .scribble .hat::after {
+    content: '^';
+    position: absolute;
+    left: 50%;
+    top: -0.6em;
+    transform: translateX(-50%);
+    font-size: 0.85em;
+    line-height: 1;
+  }
+
+  .scribble sup,
+  .scribble sub {
+    font-size: 0.62em;
+    line-height: 0;
+  }
+
+  .scribble sup {
+    vertical-align: 0.5em;
+  }
+
+  .scribble sub {
+    vertical-align: -0.25em;
+  }
+
+  /* ---- Surface ----------------------------------------------------- */
 
   .hairline {
-    background: rgb(var(--ink) / 0.08);
+    background: linear-gradient(
+      to right,
+      rgb(var(--rose) / 0.35),
+      rgb(var(--ink) / 0.09) 22%,
+      rgb(var(--ink) / 0.09)
+    );
     height: 1px;
   }
 
+  /* Barely a card: a lifted plane, one hairline, no shadow until you
+     touch it. Restraint is doing the work here. */
   .card {
+    position: relative;
     background: rgb(var(--surface));
     border: 1px solid rgb(var(--border));
     border-radius: 10px;
-    box-shadow:
-      0 1px 2px rgb(10 10 10 / 0.03),
-      0 1px 1px rgb(10 10 10 / 0.04);
     transition:
-      transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-color 220ms ease,
-      box-shadow 300ms ease;
-  }
-
-  :root.dark .card {
-    box-shadow: none;
+      transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 300ms ease,
+      box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .card:hover {
-    border-color: rgb(var(--ink) / 0.18);
+    transform: translateY(-3px);
+    border-color: rgb(var(--ink) / 0.2);
     box-shadow:
-      0 3px 10px rgb(10 10 10 / 0.06),
-      0 1px 2px rgb(10 10 10 / 0.04);
-    transform: translateY(-2px);
+      0 1px 2px rgb(20 22 26 / 0.04),
+      0 8px 24px -8px rgb(20 22 26 / 0.1);
   }
 
   :root.dark .card:hover {
-    border-color: rgb(var(--ink) / 0.22);
-    box-shadow: 0 0 0 1px rgb(var(--ink) / 0.05);
+    border-color: rgb(var(--ink) / 0.24);
+    box-shadow: none;
+    background: rgb(var(--ink) / 0.03);
   }
+
+  /* ---- Controls ---------------------------------------------------- */
 
   .btn-primary {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    height: 2.25rem;
-    padding: 0 0.875rem;
+    height: 2.375rem;
+    padding: 0 1rem;
     font-size: 0.8125rem;
     font-weight: 500;
+    letter-spacing: -0.005em;
     border-radius: 8px;
     background: rgb(var(--ink));
     color: rgb(var(--bg));
+    border: 1px solid rgb(var(--ink));
     transition:
-      transform 160ms ease,
-      background 200ms ease,
-      box-shadow 200ms ease;
+      transform 400ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 200ms ease;
   }
 
   .btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgb(10 10 10 / 0.08);
+    opacity: 0.88;
   }
 
   .btn-ghost {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    height: 2.25rem;
-    padding: 0 0.875rem;
+    height: 2.375rem;
+    padding: 0 1rem;
     font-size: 0.8125rem;
     font-weight: 500;
+    letter-spacing: -0.005em;
     border-radius: 8px;
-    background: rgb(var(--surface));
+    background: transparent;
     color: rgb(var(--ink));
     border: 1px solid rgb(var(--border));
     transition:
-      transform 160ms ease,
-      border-color 200ms ease,
-      box-shadow 200ms ease;
+      transform 400ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 300ms ease;
   }
 
   .btn-ghost:hover {
     transform: translateY(-1px);
-    border-color: rgb(var(--ink) / 0.2);
-    box-shadow: 0 3px 10px rgb(10 10 10 / 0.06);
+    border-color: rgb(var(--ink) / 0.32);
   }
 
   .chip {
@@ -202,37 +299,225 @@
     align-items: center;
     gap: 0.375rem;
     height: 1.5rem;
-    padding: 0 0.625rem;
-    border-radius: 999px;
-    background: rgb(var(--ink) / 0.05);
+    padding: 0 0.5rem;
+    border-radius: 6px;
+    background: transparent;
     border: 1px solid rgb(var(--border));
     font-family: theme('fontFamily.mono');
     font-size: 0.6875rem;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     color: rgb(var(--muted));
+    transition: border-color 300ms ease;
   }
 
   .chip--accent {
-    background: rgb(var(--accent) / 0.08);
-    border-color: rgb(var(--accent) / 0.3);
-    color: rgb(var(--accent));
+    border-color: rgb(var(--ink) / 0.3);
+    color: rgb(var(--ink));
   }
 
+  /* ---- Motion ------------------------------------------------------ */
+
+  /* Links: the rule draws itself in from the left rather than appearing. */
+  .link-underline {
+    background-image: linear-gradient(rgb(var(--rose)), rgb(var(--rose)));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1px;
+    transition: background-size 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+
+  /* Things settle into place. --stagger orders siblings within a group. */
   .fade-up {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(14px);
     transition:
-      opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--stagger, 0) * 70ms);
   }
 
   .fade-up.in {
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* Nav item marks its own section. */
+  .nav-link {
+    position: relative;
+    color: rgb(var(--muted));
+    transition: color 300ms ease;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 1px;
+    background: rgb(var(--rose));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .nav-link:hover,
+  .nav-link[aria-current='true'] {
+    color: rgb(var(--ink));
+  }
+
+  .nav-link[aria-current='true']::after {
+    transform: scaleX(1);
+  }
+
+  /* Graphing paper. A 24px fine grid with every fifth line stronger, the
+     way real graph paper rules 5mm within 1cm — tinted rose rather than
+     grey so the nerdiness reads warm. */
+  .grid-paper {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, rgb(var(--rose) / 0.16) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--rose) / 0.16) 1px, transparent 1px),
+      linear-gradient(to right, rgb(var(--rose) / 0.075) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--rose) / 0.075) 1px, transparent 1px);
+    background-size:
+      120px 120px,
+      120px 120px,
+      24px 24px,
+      24px 24px;
+    mask-image: linear-gradient(to bottom, black 0%, black 58%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 58%, transparent 100%);
+  }
+
+  :root.dark .grid-paper {
+    background-image:
+      linear-gradient(to right, rgb(var(--rose) / 0.2) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--rose) / 0.2) 1px, transparent 1px),
+      linear-gradient(to right, rgb(var(--rose) / 0.09) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--rose) / 0.09) 1px, transparent 1px);
+  }
+
+  /* Fine grain so the flat fields have some tooth. */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.03;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  :root.dark .grain {
+    opacity: 0.05;
+    mix-blend-mode: screen;
+  }
+
+  /* A soft bloom behind the hero — the page breathes rather than starting
+     on a flat field. Low enough that you read it as light, not colour. */
+  .wash {
+    position: absolute;
+    inset: -18% 0 auto 0;
+    height: 640px;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      75% 62% at 64% 30%,
+      rgb(var(--rose) / 0.075),
+      transparent 72%
+    );
+  }
+
+  :root.dark .wash {
+    background: radial-gradient(
+      75% 62% at 64% 30%,
+      rgb(var(--rose) / 0.055),
+      transparent 72%
+    );
+  }
+
+  /* ---- Signature --------------------------------------------------- */
+
+  .mark {
+    color: rgb(var(--rose));
+    opacity: 0.85;
+    transition:
+      color 400ms ease,
+      opacity 400ms ease;
+  }
+
+  .mark-group:hover .mark {
+    opacity: 1;
+  }
+
+  /* Screenshots keep their own colour against the monochrome page — they
+     are the work, so they get to be the thing you look at. */
+  .plate-img {
+    transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  /* Tucked in at a slight angle; straightens when you look at it. */
+  .tucked {
+    transform: rotate(-1.4deg);
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .tucked:hover {
+    transform: rotate(0deg);
+  }
+
+  .group:hover .plate-img {
+    transform: scale(1.03);
+  }
+}
+
+@media print {
+  .grid-paper,
+  .grain,
+  .wash,
+  .scribble,
+  header,
+  [data-ai-fab],
+  [data-consent-toast] {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .fade-up {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Links are dead on paper unless the URL comes with them. */
+  main a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.75em;
+    word-break: break-all;
+  }
+
+  .tucked {
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
@@ -242,6 +527,11 @@
 
   .fade-up {
     opacity: 1;
+    transform: none;
+  }
+
+  .tucked,
+  .tucked:hover {
     transform: none;
   }
 }

@@ -5,13 +5,15 @@ import StackSection from '@/components/StackSection.astro';
 import ProjectsSection from '@/components/ProjectsSection.astro';
 import About from '@/components/About.astro';
 import Contact from '@/components/Contact.astro';
+import Scribble from '@/components/Scribble.astro';
+import WorkFigure from '@/components/WorkFigure.astro';
 ---
 
 <Base>
   <Hero />
   <StackSection />
 
-  <div id="work"></div>
+  <WorkFigure />
 
   <ProjectsSection
     id="de"
@@ -20,7 +22,12 @@ import Contact from '@/components/Contact.astro';
     title="Pipelines, warehouses, and the boring bits done right."
     kicker="Selected projects."
     discipline="DE"
-  />
+    space="tight"
+  >
+    <Scribble slot="note" class="mt-10" note="Little's Law" tilt={2}>
+      L = λW
+    </Scribble>
+  </ProjectsSection>
 
   <ProjectsSection
     id="ds"
@@ -29,16 +36,40 @@ import Contact from '@/components/Contact.astro';
     title="Modeling, measuring, making sense of it."
     kicker="Selected projects."
     discipline="DS"
-  />
+    space="loose"
+  >
+    <Scribble slot="note" class="mt-10" note="still the whole game" tilt={-2}>
+      P(A|B) = P(B|A)·P(A) / P(B)
+    </Scribble>
+  </ProjectsSection>
+
+  <ProjectsSection
+    id="ml"
+    index="03"
+    label="Machine Learning"
+    title="Vision, models, and research that shipped."
+    kicker="Selected projects."
+    discipline="ML"
+    space="normal"
+  >
+    <Scribble slot="note" class="mt-10" note="bias–variance" tilt={1.5}>
+      E[(y − f̂)<sup>2</sup>] = Bias<sup>2</sup> + Var + σ<sup>2</sup>
+    </Scribble>
+  </ProjectsSection>
 
   <ProjectsSection
     id="ai"
-    index="03"
+    index="04"
     label="AI Engineering"
-    title="Agents, vision, and research that shipped."
+    title="Agents, and the systems around them."
     kicker="Selected projects."
     discipline="AI"
-  />
+    space="tight"
+  >
+    <Scribble slot="note" class="mt-10" note="scaled dot-product attention" tilt={-2}>
+      softmax(QK<sup>T</sup> / √d<sub>k</sub>) V
+    </Scribble>
+  </ProjectsSection>
 
   <About />
   <Contact />

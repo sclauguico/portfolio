@@ -1,0 +1,27 @@
+---
+/**
+ * Signature mark: two sources converging through a transform into an output.
+ * A pipeline drawn as a DAG — the shape Sandy's actual work takes. Used
+ * sparingly (section headers, footer) so it reads as a mark, not decoration.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<svg
+  class={className}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.4"
+  stroke-linecap="round"
+  aria-hidden="true"
+>
+  <path d="M5.6 8.2 10 11.2M5.6 15.8 10 12.8M14.2 12h4" opacity="0.55"></path>
+  <circle cx="4" cy="7" r="1.7"></circle>
+  <circle cx="4" cy="17" r="1.7"></circle>
+  <circle cx="12" cy="12" r="1.7"></circle>
+  <circle cx="20" cy="12" r="1.7"></circle>
+</svg>
